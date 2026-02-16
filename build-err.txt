@@ -1,0 +1,57 @@
+node.exe : [31m?[39m Build 
+failed in 60ms
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo          : No 
+   tSpecified: ([31m?[39m Bui  
+  ld failed in 60ms:String) []   
+ , RemoteException
+    + FullyQualifiedErrorId : Na 
+   tiveCommandError
+ 
+[31merror during build:
+[31m[@tailwindcss/vite:generate:
+build] Can't resolve './node_modu
+les/flyonui/variants.css' in 
+'D:\fmis-dev\resources\css'[31m
+file: [36mD:/fmis-dev/resources/
+css/app.css[31m
+    at finishWithoutResolve (D:\f
+mis-dev\node_modules\enhanced-res
+olve\lib\Resolver.js:586:18)
+    at D:\fmis-dev\node_modules\e
+nhanced-resolve\lib\Resolver.js:6
+78:14
+    at D:\fmis-dev\node_modules\e
+nhanced-resolve\lib\Resolver.js:7
+39:5
+    at eval (eval at create (D:\f
+mis-dev\node_modules\tapable\lib\
+HookCodeFactory.js:31:10), 
+<anonymous>:15:1)
+    at D:\fmis-dev\node_modules\e
+nhanced-resolve\lib\Resolver.js:7
+39:5
+    at eval (eval at create (D:\f
+mis-dev\node_modules\tapable\lib\
+HookCodeFactory.js:31:10), 
+<anonymous>:27:1)
+    at D:\fmis-dev\node_modules\e
+nhanced-resolve\lib\DescriptionFi
+lePlugin.js:89:43
+    at D:\fmis-dev\node_modules\e
+nhanced-resolve\lib\Resolver.js:7
+39:5
+    at eval (eval at create (D:\f
+mis-dev\node_modules\tapable\lib\
+HookCodeFactory.js:31:10), 
+<anonymous>:15:1)
+    at D:\fmis-dev\node_modules\e
+nhanced-resolve\lib\Resolver.js:7
+39:5[39m

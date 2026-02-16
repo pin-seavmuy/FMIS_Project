@@ -15,8 +15,19 @@ class UserService extends BaseService {
         return $this->model->all();
     }
 
-    public function create($data){
-        $data['password'] = Hash::make($data['password']);
-        $this->model->create($data);
+    public function create(array $data){
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
+        return $this->model->create($data);
+    }
+
+    public function update($id, array $data){
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']); // Keep existing password if empty
+        }
+        return parent::update($id, $data);
     }
 }
