@@ -18,6 +18,7 @@ class Test extends BaseComponent
     public string $userPassword = '';
     public $userId = null;
     public bool $isEditMode = false;
+    public string $search = '';
 
     protected $listeners = [
         'edit-user' => 'editUser',
@@ -28,6 +29,12 @@ class Test extends BaseComponent
     public function mount(UserService $service)
     {
         $this->datas = $this->UserReport($service);
+    }
+
+    public function updatedSearch(UserService $service)
+    {
+        $this->datas = $this->UserReport($service, $this->search);
+        $this->dispatch('users-updated', data: $this->datas->toArray());
     }
 
     public function confirmDelete($id)

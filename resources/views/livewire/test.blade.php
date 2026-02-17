@@ -6,10 +6,13 @@
                 <h1 class="users-title">Users</h1>
                 <p class="users-subtitle">Manage system users</p>
             </div>
-            <button wire:click="openCreateModal" class="users-create-btn">
-                <span class="icon-[tabler--plus]" style="width:16px;height:16px"></span>
-                Create User
-            </button>
+            <div class="flex items-center gap-3">
+                <x-search wire:model.live.debounce.300ms="search" placeholder="Search users..." />
+                <button wire:click="openCreateModal" class="users-create-btn">
+                    <span class="icon-[tabler--plus]" style="width:16px;height:16px"></span>
+                    Create User
+                </button>
+            </div>
         </div>
 
         {{-- Success Alert (overlay top-right) --}}
@@ -59,9 +62,15 @@
             </div>
             <div class="modal-footer">
                 <button onclick="document.getElementById('createUserModal').style.display='none'" class="modal-cancel-btn">Cancel</button>
-                <button wire:click="{{ $isEditMode ? 'updateUser' : 'createUser' }}" class="users-create-btn">
-                    <span class="icon-[tabler--check]" style="width:16px;height:16px"></span>
-                    {{ $isEditMode ? 'Update' : 'Create' }}
+                <button wire:click="{{ $isEditMode ? 'updateUser' : 'createUser' }}" class="users-create-btn" wire:loading.attr="disabled">
+                    <span wire:loading.remove wire:target="createUser, updateUser" class="flex items-center gap-2">
+                        <span class="icon-[tabler--check]" style="width:16px;height:16px"></span>
+                        {{ $isEditMode ? 'Update' : 'Create' }}
+                    </span>
+                    <span wire:loading.flex wire:target="createUser, updateUser" class="items-center gap-2">
+                        <span class="icon-[tabler--loader-2] animate-spin" style="width:16px;height:16px"></span>
+                        Saving...
+                    </span>
                 </button>
             </div>
         </div>

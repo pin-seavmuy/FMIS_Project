@@ -11,7 +11,7 @@ trait IncomeTrait {
         return $report;
     }
 
-    public function UserReport(UserService $service){
-        return $service->list();
+    public function UserReport(UserService $service, $search = null){
+        return $service->list($search);
     }
 }

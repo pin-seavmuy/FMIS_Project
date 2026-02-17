@@ -11,7 +11,12 @@ class UserService extends BaseService {
         parent::__construct($user);
     }
 
-    public function list(){
+    public function list($search = null){
+        if ($search) {
+            return $this->model->where('name', 'like', "%{$search}%")
+                               ->orWhere('email', 'like', "%{$search}%")
+                               ->get();
+        }
         return $this->model->all();
     }
 
