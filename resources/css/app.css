@@ -9,8 +9,8 @@
 
 @theme {
     --font-sans:
-        "Inter", "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Battambang", "Inter", "Instrument Sans", ui-sans-serif, system-ui,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
 }
 
@@ -111,7 +111,7 @@ body {
         var(--bg-gradient-end) 100%
     );
     min-height: 100vh;
-    font-family: "Inter", sans-serif;
+    font-family: "Battambang", "Inter", sans-serif;
     color: var(--text-primary);
     transition:
         background 0.3s ease,
