@@ -10,6 +10,7 @@ class BaseComponent extends Component
 {
     public string $view;
     protected $service;
+    /** @var \Illuminate\Support\Collection|array */
     public $datas = [];
 
     public function render()

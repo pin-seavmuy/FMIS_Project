@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class Test extends BaseComponent
+class ListUser extends BaseComponent
 {
     use IncomeTrait;
 
@@ -19,8 +19,10 @@ class Test extends BaseComponent
     public $userId = null;
     public bool $isEditMode = false;
     public string $search = '';
+    public $viewUser = null;
 
     protected $listeners = [
+        'view-user' => 'viewUser',
         'edit-user' => 'editUser',
         'confirm-delete' => 'confirmDelete',
         'delete-user' => 'deleteUser'
@@ -34,7 +36,7 @@ class Test extends BaseComponent
     public function updatedSearch(UserService $service)
     {
         $this->datas = $this->UserReport($service, $this->search);
-        $this->dispatch('users-updated', data: $this->datas->toArray());
+        $this->dispatch('users-updated', data: (object) $this->datas->toArray());
     }
 
     public function confirmDelete($id)
@@ -43,7 +45,8 @@ class Test extends BaseComponent
         $this->dispatch('open-delete-modal');
     }
 
-    public function createUser(UserService $service){
+    public function createUser(UserService $service)
+    {
         $this->validate([
             'userName' => 'required|min:2',
             'userEmail' => 'required|email|unique:users,email',
@@ -60,7 +63,7 @@ class Test extends BaseComponent
         $this->resetForm();
         $this->datas = $this->UserReport($service);
 
-        $this->dispatch('users-updated', data: $this->datas->toArray());
+        $this->dispatch('users-updated', data: (object) $this->datas->toArray());
         $this->dispatch('user-created', name: $createdName);
     }
 
@@ -68,6 +71,15 @@ class Test extends BaseComponent
     {
         $this->resetForm();
         $this->dispatch('open-modal');
+    }
+
+    public function viewUser($id, UserService $service)
+    {
+        $user = $service->find($id);
+        if ($user) {
+            $this->viewUser = $user;
+            $this->dispatch('open-view-modal');
+        }
     }
 
     public function editUser($id, UserService $service)
@@ -105,7 +117,7 @@ class Test extends BaseComponent
         $this->resetForm();
         $this->datas = $this->UserReport($service);
 
-        $this->dispatch('users-updated', data: $this->datas->toArray());
+        $this->dispatch('users-updated', data: (object) $this->datas->toArray());
         $this->dispatch('user-updated'); // New event for success message
     }
 
@@ -113,7 +125,7 @@ class Test extends BaseComponent
     {
         $service->delete($id);
         $this->datas = $this->UserReport($service);
-        $this->dispatch('users-updated', data: $this->datas->toArray());
+        $this->dispatch('users-updated', data: (object) $this->datas->toArray());
         $this->dispatch('user-deleted'); // Success message event
     }
 
@@ -159,9 +171,8 @@ class Test extends BaseComponent
 
     public function render()
     {
-        return view('livewire.test', [
+        return view('livewire.listUser', [
             'columns' => $this->getColumns()
         ]);
     }
 }
-

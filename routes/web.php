@@ -2,7 +2,7 @@
 
 use App\Livewire\Dashboard;
 use App\Livewire\Placeholder;
-use App\Livewire\Test;
+use App\Livewire\ListUser;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -10,7 +10,7 @@ Route::view('/', 'welcome')->name('home');
 Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
 Route::group(['prefix'=>'test'], function(){
-    Route::get('/', Test::class)->name('users');
+    Route::get('/', ListUser::class)->name('users');
 });
 
 // Financial Routes
