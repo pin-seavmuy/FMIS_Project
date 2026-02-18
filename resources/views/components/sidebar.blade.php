@@ -24,6 +24,10 @@
             <span class="icon-[tabler--book-2]" style="width:18px;height:18px"></span>
             <span>Accounting</span>
         </a>
+        <a href="{{ route('coa') }}" class="sidebar-link {{ request()->routeIs('coa') ? 'active' : '' }}">
+            <span class="icon-[tabler--list-tree]" style="width:18px;height:18px"></span>
+            <span>Chart of Accounts</span>
+        </a>
         <a href="{{ route('banking') }}" class="sidebar-link {{ request()->routeIs('banking') ? 'active' : '' }}">
             <span class="icon-[tabler--building-bank]" style="width:18px;height:18px"></span>
             <span>Banking</span>
