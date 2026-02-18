@@ -9,10 +9,10 @@ use Livewire\Component;
 #[Layout('layouts.app')]
 class Coa extends Component
 {
-    public $isOpen = false;
     public $isEditMode = false;
     public $accountId = null;
     public $deleteId = null;
+    public $viewAccount = null;
 
     // Form Fields
     public $code = '';
@@ -44,6 +44,7 @@ class Coa extends Component
 
     protected $listeners = [
         'coa-updated' => '$refresh',
+        'view-account' => 'viewAccount',
         'edit-account' => 'edit',
         'trigger-delete-coa' => 'confirmDelete',
     ];
@@ -54,11 +55,11 @@ class Coa extends Component
 
         $columnDefs = [
             ['headerName' => 'Code', 'field' => 'code', 'width' => 100],
-            ['headerName' => 'Name', 'field' => 'name', 'flex' => 1], // Removed coaName renderer
+            ['headerName' => 'Name', 'field' => 'name', 'flex' => 1],
             ['headerName' => 'Type', 'field' => 'type', 'width' => 120, 'cellStyle' => ['textTransform' => 'capitalize']],
             ['headerName' => 'Classification', 'field' => 'classification', 'width' => 180],
             ['headerName' => 'Status', 'field' => 'is_active', 'width' => 100, 'valueFormatter' => 'FmisFormatters.activeStatus'],
-            ['headerName' => 'Actions', 'field' => 'id', 'width' => 100, 'cellRenderer' => 'FmisRenderers.coaActions', 'sortable' => false, 'filter' => false],
+            ['headerName' => 'Actions', 'field' => 'id', 'width' => 140, 'cellRenderer' => 'FmisRenderers.coaActions', 'sortable' => false, 'filter' => false],
         ];
 
         return view('livewire.coa', compact('accounts', 'columnDefs'));
@@ -68,12 +69,16 @@ class Coa extends Component
     {
         $this->resetValidation();
         $this->reset(['code', 'name', 'type', 'classification', 'is_active', 'description', 'accountId', 'isEditMode']);
-        $this->isOpen = true;
+        $this->dispatch('open-coa-form-modal');
     }
 
-    public function closeModal()
+    public function viewAccount($id, ChartOfAccountService $service)
     {
-        $this->isOpen = false;
+        $account = $service->find($id);
+        if ($account) {
+            $this->viewAccount = $account;
+            $this->dispatch('open-view-coa-modal');
+        }
     }
 
     public function store(ChartOfAccountService $service)
@@ -89,7 +94,6 @@ class Coa extends Component
             'description' => $this->description,
         ]);
 
-        $this->closeModal();
         $this->refreshGrid($service);
         $this->dispatch('coa-created');
     }
@@ -104,9 +108,9 @@ class Coa extends Component
         $this->classification = $account->classification;
         $this->is_active = $account->is_active;
         $this->description = $account->description;
-        
+
         $this->isEditMode = true;
-        $this->isOpen = true;
+        $this->dispatch('open-coa-form-modal');
     }
 
     public function update(ChartOfAccountService $service)
@@ -127,7 +131,6 @@ class Coa extends Component
             'description' => $this->description,
         ]);
 
-        $this->closeModal();
         $this->refreshGrid($service);
         $this->dispatch('coa-updated-msg');
     }

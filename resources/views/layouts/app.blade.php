@@ -36,7 +36,9 @@
     <div class="min-h-screen bg-base-100 text-base-content" id="app-shell">
         <x-sidebar />
 
-        <main class="min-h-screen transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] md:ml-[260px] [.sidebar-collapsed_&]:md:ml-[72px] ml-0 py-6" id="main-content">
+        <main
+            class="min-h-screen transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] md:ml-[260px] [.sidebar-collapsed_&]:md:ml-[72px] ml-0 py-6"
+            id="main-content">
             {{ $slot }}
         </main>
     </div>
@@ -79,18 +81,18 @@
                 window.location.href = '/';
             });
 
-                // Forward SSO events to Livewire
-                document.addEventListener('smis-session:ready', (event) => {
-                    console.log('SSO Context:', event.detail); // Debug login context
-                    const d = event.detail || {};
-                    Livewire.dispatch('smis-session-ready', {
-                        accessToken: d.accessToken || '',
-                        roles: d.roles || [],
-                        permissions: d.permissions || [],
-                        profile: d.profile || null,
-                    });
+            // Forward SSO events to Livewire
+            document.addEventListener('smis-session:ready', (event) => {
+                console.log('SSO Context:', event.detail); // Debug login context
+                const d = event.detail || {};
+                Livewire.dispatch('smis-session-ready', {
+                    accessToken: d.accessToken || '',
+                    roles: d.roles || [],
+                    permissions: d.permissions || [],
+                    profile: d.profile || null,
                 });
-            })();
+            });
+        })();
 
         // ── Sidebar Toggle ──
         (function() {

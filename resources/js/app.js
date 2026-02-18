@@ -95,6 +95,7 @@ window.FmisRenderers = {
         if (!params.data) return "";
         const id = params.data.id;
         return `<div class="flex gap-1 items-center justify-center h-full">
+            ${makeActionBtn("view", `Livewire.dispatch('view-account', { id: ${id} })`)}
             ${makeActionBtn("edit", `Livewire.dispatch('edit-account', { id: ${id} })`)}
             ${makeActionBtn("delete", `Livewire.dispatch('trigger-delete-coa', { id: ${id} })`)}
         </div>`;
