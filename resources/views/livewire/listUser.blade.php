@@ -27,9 +27,7 @@
         </div>
 
         {{-- AG Grid Table --}}
-        <div class="bg-base-100 border border-base-200 rounded-2xl p-4 overflow-hidden shadow-sm">
-            <x-ag-grid id="usersGrid" :rowData="$datas" :columnDefs="$columns" updateEvent="users-updated" />
-        </div>
+        <x-ag-grid id="usersGrid" :rowData="$datas" :columnDefs="$columns" updateEvent="users-updated" />
     </div>
 
     {{-- User Modal --}}
