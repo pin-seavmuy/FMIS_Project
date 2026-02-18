@@ -1,9 +1,9 @@
 @props(['active' => ''])
 
-<aside class="sidebar" id="sidebar">
+<aside class="fixed top-0 left-0 w-[260px] h-screen bg-base-100/80 backdrop-blur-xl border-r border-base-200 flex flex-col z-[90] transition-[width,transform] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden [.sidebar-collapsed_&]:w-[72px] -translate-x-full md:translate-x-0 [.sidebar-mobile-open_&]:translate-x-0 [.sidebar-mobile-open_&]:shadow-2xl print:hidden" id="sidebar">
     {{-- Logo / Brand --}}
-    <div class="sidebar-brand">
-        <div class="sidebar-logo">
+    <div class="flex items-center gap-3.5 px-5 py-6 border-b border-base-200/50 [.sidebar-collapsed_&]:justify-center min-h-[88px]">
+        <div class="w-10 h-10 min-w-[40px] rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="12 2 2 7 12 12 22 7 12 2" />
@@ -11,87 +11,87 @@
                 <polyline points="2 12 12 17 22 12" />
             </svg>
         </div>
-        <span class="sidebar-brand-text">FMIS</span>
+        <span class="text-xl font-bold bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text text-transparent whitespace-nowrap [.sidebar-collapsed_&]:hidden transition-opacity duration-300">FMIS</span>
     </div>
 
     {{-- Navigation --}}
-    <nav class="sidebar-nav">
-        <span class="sidebar-section-title">General</span>
+    <nav class="flex-1 px-3 py-4 overflow-y-auto scrollbar-thin">
+        <span class="block text-[11px] font-bold uppercase tracking-wider text-base-content/40 px-3 py-1.5 mt-2 mb-1 whitespace-nowrap [.sidebar-collapsed_&]:hidden">General</span>
 
-        <a href="{{ route('dashboard') }}" class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-            <span class="icon-[tabler--layout-dashboard]" style="width:18px;height:18px"></span>
-            <span>Dashboard</span>
-        </a>
-
-        <span class="sidebar-section-title">Finance</span>
-
-        <a href="{{ route('accounting') }}" class="sidebar-link {{ request()->routeIs('accounting') ? 'active' : '' }}">
-            <span class="icon-[tabler--book-2]" style="width:18px;height:18px"></span>
-            <span>Accounting</span>
-        </a>
-        <a href="{{ route('coa') }}" class="sidebar-link {{ request()->routeIs('coa') ? 'active' : '' }}">
-            <span class="icon-[tabler--list-tree]" style="width:18px;height:18px"></span>
-            <span>Chart of Accounts</span>
-        </a>
-        <a href="{{ route('banking') }}" class="sidebar-link {{ request()->routeIs('banking') ? 'active' : '' }}">
-            <span class="icon-[tabler--building-bank]" style="width:18px;height:18px"></span>
-            <span>Banking</span>
-        </a>
-        <a href="{{ route('invoices') }}" class="sidebar-link {{ request()->routeIs('invoices') ? 'active' : '' }}">
-            <span class="icon-[tabler--file-invoice]" style="width:18px;height:18px"></span>
-            <span>Invoices</span>
-        </a>
-        <a href="{{ route('bills') }}" class="sidebar-link {{ request()->routeIs('bills') ? 'active' : '' }}">
-            <span class="icon-[tabler--receipt]" style="width:18px;height:18px"></span>
-            <span>Bills</span>
+        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('dashboard') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--layout-dashboard] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Dashboard</span>
         </a>
 
-        <span class="sidebar-section-title">Reports</span>
+        <span class="block text-[11px] font-bold uppercase tracking-wider text-base-content/40 px-3 py-1.5 mt-2 mb-1 whitespace-nowrap [.sidebar-collapsed_&]:hidden">Finance</span>
 
-        <a href="{{ route('reports') }}" class="sidebar-link {{ request()->routeIs('reports') ? 'active' : '' }}">
-            <span class="icon-[tabler--report-analytics]" style="width:18px;height:18px"></span>
-            <span>Reports</span>
+        <a href="{{ route('accounting') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('accounting') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--book-2] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Accounting</span>
+        </a>
+        <a href="{{ route('coa') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('coa') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--list-tree] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Chart of Accounts</span>
+        </a>
+        <a href="{{ route('banking') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('banking') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--building-bank] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Banking</span>
+        </a>
+        <a href="{{ route('invoices') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('invoices') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--file-invoice] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Invoices</span>
+        </a>
+        <a href="{{ route('bills') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('bills') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--receipt] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Bills</span>
         </a>
 
-        <span class="sidebar-section-title">System</span>
+        <span class="block text-[11px] font-bold uppercase tracking-wider text-base-content/40 px-3 py-1.5 mt-2 mb-1 whitespace-nowrap [.sidebar-collapsed_&]:hidden">Reports</span>
 
-        <a href="{{ route('users') }}" class="sidebar-link {{ request()->routeIs('users') ? 'active' : '' }}">
-            <span class="icon-[tabler--users]" style="width:18px;height:18px"></span>
-            <span>Users</span>
+        <a href="{{ route('reports') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('reports') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--report-analytics] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Reports</span>
         </a>
-        <a href="{{ route('settings') }}" class="sidebar-link {{ request()->routeIs('settings') ? 'active' : '' }}">
-            <span class="icon-[tabler--settings]" style="width:18px;height:18px"></span>
-            <span>Settings</span>
+
+        <span class="block text-[11px] font-bold uppercase tracking-wider text-base-content/40 px-3 py-1.5 mt-2 mb-1 whitespace-nowrap [.sidebar-collapsed_&]:hidden">System</span>
+
+        <a href="{{ route('users') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('users') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--users] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Users</span>
+        </a>
+        <a href="{{ route('settings') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('settings') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
+            <span class="icon-[tabler--settings] w-[18px] h-[18px] flex-shrink-0"></span>
+            <span class="[.sidebar-collapsed_&]:hidden">Settings</span>
         </a>
     </nav>
 
     {{-- Sidebar Footer --}}
-    <div class="sidebar-footer">
-        <button class="sidebar-signout-btn" id="sidebar-signout-btn" aria-label="Sign out">
+    <div class="p-3 border-t border-base-200/50 space-y-1">
+        <button class="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl bg-transparent border-none text-xs font-medium cursor-pointer transition-all whitespace-nowrap hover:bg-error/10 hover:text-error text-base-content/70 [.sidebar-collapsed_&]:justify-center group" id="sidebar-signout-btn" aria-label="Sign out">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 group-hover:text-error transition-colors">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                 <polyline points="16 17 21 12 16 7" />
                 <line x1="21" y1="12" x2="9" y2="12" />
             </svg>
-            <span>Sign Out</span>
+            <span class="[.sidebar-collapsed_&]:hidden">Sign Out</span>
         </button>
-        <button class="sidebar-collapse-btn" id="sidebar-collapse-btn" aria-label="Collapse sidebar">
+        <button class="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl bg-transparent border-none text-xs font-medium cursor-pointer transition-all whitespace-nowrap hover:bg-base-200 hover:text-base-content text-base-content/70 [.sidebar-collapsed_&]:justify-center" id="sidebar-collapse-btn" aria-label="Collapse sidebar">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 transition-transform duration-300 [.sidebar-collapsed_&]:rotate-180">
                 <polyline points="11 17 6 12 11 7" />
                 <polyline points="18 17 13 12 18 7" />
             </svg>
-            <span>Collapse</span>
+            <span class="[.sidebar-collapsed_&]:hidden">Collapse</span>
         </button>
     </div>
 </aside>
 
 {{-- Mobile overlay --}}
-<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden [.sidebar-overlay.active_&]:block transition-opacity" id="sidebar-overlay"></div>
 
 {{-- Mobile hamburger --}}
-<button class="sidebar-hamburger" id="sidebar-hamburger" aria-label="Open menu">
+<button class="fixed top-4 left-4 z-50 p-2 bg-base-100/80 backdrop-blur-md border border-base-200 rounded-lg text-base-content shadow-sm md:hidden flex items-center justify-center cursor-pointer" id="sidebar-hamburger" aria-label="Open menu">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="3" y1="12" x2="21" y2="12" />

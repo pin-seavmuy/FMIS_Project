@@ -33,10 +33,10 @@
     ])
 
     {{-- App Shell: Sidebar + Main Content --}}
-    <div class="app-shell" id="app-shell">
+    <div class="min-h-screen bg-base-100 text-base-content" id="app-shell">
         <x-sidebar />
 
-        <main class="main-content" id="main-content">
+        <main class="min-h-screen transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] md:ml-[260px] [.sidebar-collapsed_&]:md:ml-[72px] ml-0 py-6" id="main-content">
             {{ $slot }}
         </main>
     </div>

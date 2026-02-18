@@ -9,10 +9,10 @@
 
 @php
     $variants = [
-        'primary' => 'btn-primary',
-        'secondary' => 'btn-secondary',
-        'danger' => 'btn-danger',
-        'cancel' => 'btn-cancel',
+        'primary' => 'btn-primary shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all w-full sm:w-auto',
+        'secondary' => 'btn-neutral',
+        'danger' => 'btn-error text-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all',
+        'cancel' => 'btn-ghost text-base-content/70 hover:bg-base-200',
         'ghost' => 'btn-ghost',
     ];
 
@@ -22,7 +22,7 @@
         'lg' => 'btn-lg',
     ];
 
-    $classes = 'btn ' . ($variants[$variant] ?? $variants['primary']) . ' ' . ($sizes[$size] ?? $sizes['md']);
+    $classes = 'btn ' . ($variants[$variant] ?? $variants['primary']) . ' ' . ($sizes[$size] ?? $sizes['md']) . ' gap-2 normal-case font-semibold rounded-xl border-none';
 @endphp
 
 <button {{ $attributes->merge(['class' => $classes]) }}>
