@@ -43,24 +43,24 @@
         @if($updateEvent)
         Livewire.on('{{ $updateEvent }}', (args) => {
             if (this.gridApi) {
-                let newData = event;
+                let newData = args;
 
                 // Scenario 1: Event is an array containing the payload object [ { data: [...] } ]
-                if (Array.isArray(event) && event.length === 1 && event[0].data) {
-                    newData = event[0].data;
-                } 
+                if (Array.isArray(args) && args.length === 1 && args[0].data) {
+                    newData = args[0].data;
+                }
                 // Scenario 2: Event is the payload object { data: [...] }
-                else if (event.data) {
-                    newData = event.data;
+                else if (args.data) {
+                    newData = args.data;
                 }
                 // Scenario 3: Event is the data array itself [...] (legacy or plain dispatch)
-                else if (Array.isArray(event)) {
-                     // Check if it's wrapped in an array by Livewire (e.g. [[...]])
-                     if (event.length === 1 && Array.isArray(event[0])) {
-                         newData = event[0];
-                     } else {
-                         newData = event;
-                     }
+                else if (Array.isArray(args)) {
+                    // Check if it's wrapped in an array by Livewire (e.g. [[...]])
+                    if (args.length === 1 && Array.isArray(args[0])) {
+                        newData = args[0];
+                    } else {
+                        newData = args;
+                    }
                 }
 
                 this.gridApi.setGridOption('rowData', newData);
