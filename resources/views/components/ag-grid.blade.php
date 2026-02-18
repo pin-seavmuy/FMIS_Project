@@ -43,12 +43,27 @@
         @if($updateEvent)
         Livewire.on('{{ $updateEvent }}', (args) => {
             if (this.gridApi) {
-                // Livewire 3 passes event params as an array: args = [{data: [...]}]
-                const payload = Array.isArray(args) ? args[0] : args;
-                const newData = payload?.data ?? payload;
-                // Ensure rowData is an array (convert object to array if needed)
-                const rowData = Array.isArray(newData) ? newData : Object.values(newData);
-                this.gridApi.setGridOption('rowData', rowData);
+                let newData = event;
+
+                // Scenario 1: Event is an array containing the payload object [ { data: [...] } ]
+                if (Array.isArray(event) && event.length === 1 && event[0].data) {
+                    newData = event[0].data;
+                } 
+                // Scenario 2: Event is the payload object { data: [...] }
+                else if (event.data) {
+                    newData = event.data;
+                }
+                // Scenario 3: Event is the data array itself [...] (legacy or plain dispatch)
+                else if (Array.isArray(event)) {
+                     // Check if it's wrapped in an array by Livewire (e.g. [[...]])
+                     if (event.length === 1 && Array.isArray(event[0])) {
+                         newData = event[0];
+                     } else {
+                         newData = event;
+                     }
+                }
+
+                this.gridApi.setGridOption('rowData', newData);
             }
         });
         @endif
