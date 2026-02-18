@@ -1,3 +1,5 @@
+@import "ag-grid-community/styles/ag-grid.css";
+@import "ag-grid-community/styles/ag-theme-quartz.css";
 @import "tailwindcss";
 @plugin "flyonui";
 @plugin "@iconify/tailwind4";
@@ -114,4 +116,90 @@ body {
     transition:
         background 0.3s ease,
         color 0.3s ease;
+}
+
+/* ── AG Grid Theme Overrides ─────────────────────────────────── */
+
+.ag-theme-quartz,
+.ag-theme-quartz-dark {
+    /* Backgrounds */
+    --ag-background-color: var(--surface);
+    --ag-header-background-color: rgba(99, 102, 241, 0.03);
+    --ag-odd-row-background-color: rgba(99, 102, 241, 0.02);
+    --ag-control-panel-background-color: var(--surface);
+
+    /* Borders */
+    --ag-border-color: var(--border);
+    --ag-secondary-border-color: var(--border-subtle);
+    --ag-row-border-color: var(--border-subtle);
+    --ag-header-column-separator-color: var(--border-subtle);
+
+    /* Text */
+    --ag-foreground-color: var(--text-primary);
+    --ag-data-color: var(--text-primary);
+    --ag-header-foreground-color: var(--text-secondary);
+    --ag-secondary-foreground-color: var(--text-muted);
+    --ag-disabled-foreground-color: var(--text-faint);
+
+    /* Interactive */
+    --ag-row-hover-color: var(--border-hover);
+    --ag-selected-row-background-color: rgba(99, 102, 241, 0.1);
+    --ag-range-selection-border-color: #6366f1;
+    --ag-range-selection-background-color: rgba(99, 102, 241, 0.2);
+    --ag-input-focus-border-color: #6366f1;
+    --ag-checkbox-checked-color: #6366f1;
+
+    /* Sizing & Spacing */
+    --ag-grid-size: 6px;
+    --ag-list-item-height: 40px;
+    --ag-row-height: 48px;
+    --ag-header-height: 48px;
+
+    /* Effects */
+    backdrop-filter: blur(16px);
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+/* Headers specific styling */
+.ag-header {
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.ag-header-cell-text {
+    font-weight: 600;
+}
+
+/* Text smoothing */
+.ag-root-wrapper {
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Pagination toolbar */
+.ag-paging-panel {
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+/* Inputs in grid */
+.ag-input-field-input {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .ag-input-field-input {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.ag-theme-quartz-dark {
+    --ag-header-background-color: rgba(99, 102, 241, 0.1);
+    --ag-odd-row-background-color: rgba(255, 255, 255, 0.015);
 }

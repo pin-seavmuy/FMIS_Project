@@ -25,4 +25,12 @@ class ChartOfAccountService extends BaseService
     {
         return $this->all();
     }
+
+    public function search(string $query)
+    {
+        return $this->model->where('name', 'like', "%{$query}%")
+            ->orWhere('code', 'like', "%{$query}%")
+            ->orderBy('code')
+            ->get();
+    }
 }

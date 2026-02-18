@@ -1,47 +1,9 @@
 <div>
     {{-- Authenticated Dashboard --}}
     <div class="max-w-full mx-auto py-8 px-12">
-        <div class="mb-10">
-            <div
-                class="flex items-center justify-between p-7 bg-base-100/80 backdrop-blur-xl border border-base-200 rounded-[1.25rem] shadow-sm">
-                <div class="flex items-center gap-5">
-                    <div
-                        class="w-[52px] h-[52px] rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-xl font-bold text-white shadow-lg shadow-indigo-500/30">
-                        {{ strtoupper(substr($displayName ?? ($username ?? '?'), 0, 1)) }}
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-semibold text-base-content m-0">Welcome back, <span
-                                class="bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text text-transparent">{{ $displayName ?? $username }}</span>
-                        </h1>
-                        <p class="mt-1 text-base-content/60 text-sm">{{ $email }}</p>
-                    </div>
-                </div>
-                <button
-                    class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-br from-indigo-500 to-violet-500 border-none text-white rounded-xl text-sm font-semibold cursor-pointer transition-all hover:-translate-y-px hover:shadow-lg hover:shadow-indigo-500/30 hover:brightness-110"
-                    id="theme-toggle-app" aria-label="Toggle theme">
-                    {{-- Sun icon (shown in dark mode → click to go light) --}}
-                    <svg class="theme-icon-light-app theme-icon w-5 h-5 flex-shrink-0 text-white"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    </svg>
-                    {{-- Moon icon (shown in light mode → click to go dark) --}}
-                    <svg class="theme-icon-dark-app theme-icon w-5 h-5 flex-shrink-0 text-white"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                    </svg>
-                    <span class="theme-label-app"></span>
-                </button>
-            </div>
+        <div class="mb-6">
+            <h1 class="text-3xl font-bold text-base-content mb-1">Dashboard</h1>
+            <p class="text-sm text-base-content/70">Overview of your account and system status</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

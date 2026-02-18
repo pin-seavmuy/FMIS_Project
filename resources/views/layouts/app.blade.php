@@ -37,8 +37,9 @@
         <x-sidebar />
 
         <main
-            class="min-h-screen transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] md:ml-[260px] [.sidebar-collapsed_&]:md:ml-[72px] ml-0 py-6"
+            class="min-h-screen transition-[margin] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] md:ml-[260px] [.sidebar-collapsed_&]:md:ml-[72px] ml-0 pb-6"
             id="main-content">
+            <x-navbar />
             {{ $slot }}
         </main>
     </div>

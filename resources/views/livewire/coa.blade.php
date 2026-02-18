@@ -1,14 +1,17 @@
 <div>
     <div class="p-8">
         {{-- Header --}}
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex justify-between items-end mb-6">
             <div>
                 <h1 class="text-3xl font-bold text-base-content mb-1">Chart of Accounts</h1>
                 <p class="text-sm text-base-content/70">Manage your financial structure</p>
             </div>
-            <x-btn variant="primary" icon="tabler--plus" wire:click="openModal">
-                Add Account
-            </x-btn>
+            <div class="flex items-center gap-3">
+                <x-search wire:model.live.debounce.300ms="search" placeholder="Search accounts..." />
+                <x-btn variant="primary" icon="tabler--plus" wire:click="openModal">
+                    Add Account
+                </x-btn>
+            </div>
         </div>
 
         {{-- Success Alert --}}
@@ -161,34 +164,41 @@
 
     <script>
         document.addEventListener('livewire:init', () => {
-            const formModal = document.getElementById('coaFormModal');
-            const viewModal = document.getElementById('viewAccountModal');
-            const deleteModal = document.getElementById('deleteAccountModal');
-            const alert = document.getElementById('coa-success-alert');
-            const msg = document.getElementById('coa-success-msg');
-
             const showSuccess = (message) => {
+                const formModal = document.getElementById('coaFormModal');
+                const viewModal = document.getElementById('viewAccountModal');
+                const deleteModal = document.getElementById('deleteAccountModal');
+                const alert = document.getElementById('coa-success-alert');
+                const msg = document.getElementById('coa-success-msg');
+
                 if (formModal) formModal.style.display = 'none';
+                if (viewModal) viewModal.style.display = 'none';
                 if (deleteModal) deleteModal.style.display = 'none';
+                
                 if (alert && msg) {
                     msg.textContent = message;
                     alert.style.display = 'flex';
                     setTimeout(() => {
-                        alert.style.display = 'none';
+                        // Check if alert still exists before hiding
+                        const currentAlert = document.getElementById('coa-success-alert');
+                        if (currentAlert) currentAlert.style.display = 'none';
                     }, 4000);
                 }
             };
 
             Livewire.on('open-coa-form-modal', () => {
-                if (formModal) formModal.style.display = 'flex';
+                const el = document.getElementById('coaFormModal');
+                if (el) el.style.display = 'flex';
             });
 
             Livewire.on('open-view-coa-modal', () => {
-                if (viewModal) viewModal.style.display = 'flex';
+                const el = document.getElementById('viewAccountModal');
+                if (el) el.style.display = 'flex';
             });
 
             Livewire.on('open-delete-coa-modal', () => {
-                if (deleteModal) deleteModal.style.display = 'flex';
+                const el = document.getElementById('deleteAccountModal');
+                if (el) el.style.display = 'flex';
             });
 
             Livewire.on('coa-created', () => showSuccess('Account created successfully!'));

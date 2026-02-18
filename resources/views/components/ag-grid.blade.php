@@ -2,9 +2,27 @@
 
 <div wire:ignore x-data="{
     gridApi: null,
+    theme: 'light',
     initGrid() {
         const gridDiv = document.getElementById('{{ $id }}');
         if (!gridDiv || this.gridApi) return;
+
+        // Initialize theme based on document attribute
+        this.updateTheme();
+
+        // Observer for theme changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                    this.updateTheme();
+                }
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
 
         // Process columnDefs to map string formatters and renderers to functions
         const processedColDefs = @js($columnDefs).map(col => {
@@ -36,6 +54,7 @@
             },
             animateRows: true,
             rowSelection: { mode: 'singleRow' },
+            theme: 'legacy',
         };
 
         this.gridApi = AgGrid.createGrid(gridDiv, gridOptions);
@@ -67,9 +86,14 @@
             }
         });
         @endif
+    },
+    updateTheme() {
+        const docTheme = document.documentElement.getAttribute('data-theme');
+        this.theme = docTheme === 'dark' ? 'dark' : 'light';
     }
 }" x-init="initGrid()" x-on:livewire:navigated.window="initGrid()">
 
     <div id="{{ $id }}"
+        :class="theme === 'dark' ? 'ag-theme-quartz-dark' : 'ag-theme-quartz'"
         style="width: 100%; height: {{ $height }}; --ag-font-family: 'Battambang', 'Inter', sans-serif;"></div>
 </div>

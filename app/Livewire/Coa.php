@@ -21,6 +21,14 @@ class Coa extends Component
     public $classification = '';
     public $is_active = true;
     public $description = '';
+    public $search = '';
+
+    public function updatedSearch()
+    {
+        $service = app(ChartOfAccountService::class);
+        $accounts = $this->search ? $service->search($this->search) : $service->all();
+        $this->dispatch('coa-updated', ['data' => $accounts]);
+    }
 
     public $classifications = [
         'Current Assets',
@@ -51,7 +59,7 @@ class Coa extends Component
 
     public function render(ChartOfAccountService $service)
     {
-        $accounts = $service->all();
+        $accounts = $this->search ? $service->search($this->search) : $service->all();
 
         $columnDefs = [
             ['headerName' => 'Code', 'field' => 'code', 'width' => 100],
