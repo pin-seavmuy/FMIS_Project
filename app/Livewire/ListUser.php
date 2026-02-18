@@ -36,7 +36,7 @@ class ListUser extends BaseComponent
     public function updatedSearch(UserService $service)
     {
         $this->datas = $this->UserReport($service, $this->search);
-        $this->dispatch('users-updated', data: (object) $this->datas->toArray());
+        $this->dispatch('users-updated', data: $this->datas->values()->toArray());
     }
 
     public function confirmDelete($id)
@@ -63,7 +63,7 @@ class ListUser extends BaseComponent
         $this->resetForm();
         $this->datas = $this->UserReport($service);
 
-        $this->dispatch('users-updated', data: (object) $this->datas->toArray());
+        $this->dispatch('users-updated', data: $this->datas->values()->toArray());
         $this->dispatch('user-created', name: $createdName);
     }
 
@@ -117,7 +117,7 @@ class ListUser extends BaseComponent
         $this->resetForm();
         $this->datas = $this->UserReport($service);
 
-        $this->dispatch('users-updated', data: (object) $this->datas->toArray());
+        $this->dispatch('users-updated', data: $this->datas->values()->toArray());
         $this->dispatch('user-updated'); // New event for success message
     }
 
@@ -125,7 +125,7 @@ class ListUser extends BaseComponent
     {
         $service->delete($id);
         $this->datas = $this->UserReport($service);
-        $this->dispatch('users-updated', data: (object) $this->datas->toArray());
+        $this->dispatch('users-updated', data: $this->datas->values()->toArray());
         $this->dispatch('user-deleted'); // Success message event
     }
 

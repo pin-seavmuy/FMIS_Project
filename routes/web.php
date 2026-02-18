@@ -9,7 +9,7 @@ Route::view('/', 'welcome')->name('home');
 
 Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
-Route::group(['prefix'=>'test'], function(){
+Route::group(['prefix'=>'user'], function(){
     Route::get('/', ListUser::class)->name('users');
 });
 

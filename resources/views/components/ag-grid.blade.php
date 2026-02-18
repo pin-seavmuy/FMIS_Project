@@ -1,10 +1,4 @@
-@props([
-    'id',
-    'rowData' => [],
-    'columnDefs' => [],
-    'height' => '500px',
-    'updateEvent' => null,
-])
+@props(['id', 'rowData' => [], 'columnDefs' => [], 'height' => '500px', 'updateEvent' => null])
 
 <div wire:ignore x-data="{
     gridApi: null,
@@ -47,17 +41,20 @@
         this.gridApi = AgGrid.createGrid(gridDiv, gridOptions);
 
         @if($updateEvent)
-        Livewire.on('{{ $updateEvent }}', (event) => {
+        Livewire.on('{{ $updateEvent }}', (args) => {
             if (this.gridApi) {
-                // Handle both direct data array or event.data structure
-                const newData = event.data || event;
-                this.gridApi.setGridOption('rowData', newData);
+                // Livewire 3 passes event params as an array: args = [{data: [...]}]
+                const payload = Array.isArray(args) ? args[0] : args;
+                const newData = payload?.data ?? payload;
+                // Ensure rowData is an array (convert object to array if needed)
+                const rowData = Array.isArray(newData) ? newData : Object.values(newData);
+                this.gridApi.setGridOption('rowData', rowData);
             }
         });
         @endif
     }
-}" x-init="initGrid()"
-    x-on:livewire:navigated.window="initGrid()">
+}" x-init="initGrid()" x-on:livewire:navigated.window="initGrid()">
 
-    <div id="{{ $id }}" style="width: 100%; height: {{ $height }};"></div>
+    <div id="{{ $id }}"
+        style="width: 100%; height: {{ $height }}; --ag-font-family: 'Battambang', 'Inter', sans-serif;"></div>
 </div>

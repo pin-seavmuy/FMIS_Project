@@ -734,12 +734,24 @@ body {
 }
 
 .sidebar-collapsed .sidebar-brand-text,
-.sidebar-collapsed .sidebar-link span,
+.sidebar-collapsed .sidebar-link span:last-child,
 .sidebar-collapsed .sidebar-section-title,
 .sidebar-collapsed .sidebar-collapse-btn span,
 .sidebar-collapsed .sidebar-signout-btn span {
-    opacity: 0;
-    visibility: hidden;
+    display: none;
+}
+
+.sidebar-collapsed .sidebar-link {
+    justify-content: center;
+}
+
+.sidebar-collapsed .sidebar-brand {
+    justify-content: center;
+}
+
+.sidebar-collapsed .sidebar-collapse-btn,
+.sidebar-collapsed .sidebar-signout-btn {
+    justify-content: center;
 }
 
 .sidebar-collapsed .sidebar-collapse-btn svg {
