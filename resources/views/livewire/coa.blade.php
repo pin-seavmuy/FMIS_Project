@@ -1,24 +1,24 @@
 <div>
-    <div class="coa-page max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="p-8">
         {{-- Header --}}
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h1 class="text-2xl font-bold text-base-content">Chart of Accounts</h1>
+                <h1 class="text-3xl font-bold text-base-content mb-1">Chart of Accounts</h1>
                 <p class="text-sm text-base-content/70">Manage your financial structure</p>
             </div>
             <button wire:click="openModal" class="btn btn-primary btn-sm gap-2">
-                <span class="icon-[tabler--plus]" style="width:16px;height:16px"></span>
+                <span class="icon-[tabler--plus] w-4 h-4"></span>
                 Add Account
             </button>
         </div>
 
-        {{-- Content --}}
-        <div class="card bg-base-100 shadow-sm border border-base-200">
         {{-- Success Alert --}}
-        <div id="coa-success-alert" class="users-alert" style="display:none">
-            <span class="icon-[tabler--circle-check] users-alert-icon"></span>
-            <span id="coa-success-msg"></span>
-            <button onclick="document.getElementById('coa-success-alert').style.display='none'" class="users-alert-close">&times;</button>
+        <div id="coa-success-alert" class="fixed top-6 right-6 z-[9999] hidden items-center gap-2.5 px-6 py-4 bg-base-100 border-l-4 border-green-500 rounded-lg shadow-xl" style="display:none">
+            <span class="icon-[tabler--circle-check] w-5 h-5 text-green-600"></span>
+            <span id="coa-success-msg" class="text-sm font-semibold text-green-700"></span>
+            <button onclick="document.getElementById('coa-success-alert').style.display='none'" class="ml-auto text-base-content/60 hover:text-base-content transition-colors">
+                <span class="icon-[tabler--x] w-5 h-5"></span>
+            </button>
         </div>
 
         {{-- Content --}}
@@ -48,22 +48,24 @@
         </div>
 
     {{-- Delete Confirmation Modal --}}
-    <div id="deleteAccountModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 class="modal-title text-red-600">
-                    <span class="icon-[tabler--alert-triangle]" style="width:20px;height:20px"></span>
+    <div id="deleteAccountModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9000] hidden" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+        <div class="bg-base-100 border border-base-200 rounded-2xl w-full max-w-lg m-4 shadow-xl">
+            <div class="flex items-center justify-between p-5 border-b border-base-200">
+                <h3 class="flex items-center gap-2 text-lg font-semibold text-error">
+                    <span class="icon-[tabler--alert-triangle] w-5 h-5"></span>
                     Delete Account
                 </h3>
-                <button onclick="document.getElementById('deleteAccountModal').style.display='none'" class="modal-close">&times;</button>
+                <button onclick="document.getElementById('deleteAccountModal').style.display='none'" class="btn btn-ghost btn-sm btn-circle">
+                    <span class="icon-[tabler--x] w-5 h-5"></span>
+                </button>
             </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this account? This action cannot be undone.</p>
+            <div class="p-6">
+                <p class="text-base-content/80">Are you sure you want to delete this account? This action cannot be undone.</p>
             </div>
-            <div class="modal-footer">
-                <button onclick="document.getElementById('deleteAccountModal').style.display='none'" class="modal-cancel-btn">Cancel</button>
-                <button wire:click="delete" onclick="document.getElementById('deleteAccountModal').style.display='none'" class="users-delete-confirm-btn" style="background-color: #ef4444; color: white; padding: 8px 16px; border-radius: 6px; display: flex; align-items: center; gap: 8px;">
-                    <span class="icon-[tabler--trash]" style="width:16px;height:16px"></span>
+            <div class="flex justify-end gap-3 p-4 border-t border-base-200">
+                <button onclick="document.getElementById('deleteAccountModal').style.display='none'" class="btn btn-ghost border border-base-200 text-base-content/70 hover:text-base-content">Cancel</button>
+                <button wire:click="delete" onclick="document.getElementById('deleteAccountModal').style.display='none'" class="btn btn-error text-white gap-2">
+                    <span class="icon-[tabler--trash] w-4 h-4"></span>
                     Delete
                 </button>
             </div>
@@ -94,51 +96,52 @@
             Livewire.on('coa-deleted', () => showSuccess('Account deleted successfully!'));
         });
     </script>
-        </div>
     </div>
 
     {{-- Modal --}}
     @if($isOpen)
-    <div class="modal-overlay" style="display:flex" wire:click.self="closeModal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <span class="icon-[tabler--list-tree]" style="width:20px;height:20px"></span>
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9000]" style="display:flex" wire:click.self="closeModal">
+        <div class="bg-base-100 border border-base-200 rounded-2xl w-full max-w-lg m-4 shadow-xl">
+            <div class="flex items-center justify-between p-5 border-b border-base-200">
+                <h3 class="flex items-center gap-2 text-lg font-semibold text-base-content">
+                    <span class="icon-[tabler--list-tree] w-5 h-5"></span>
                     {{ $isEditMode ? 'Edit Account' : 'Create New Account' }}
                 </h3>
-                <button wire:click="closeModal" class="modal-close">&times;</button>
+                <button wire:click="closeModal" class="btn btn-ghost btn-sm btn-circle">
+                    <span class="icon-[tabler--x] w-5 h-5"></span>
+                </button>
             </div>
             
-            <div class="modal-body">
+            <div class="p-6">
                 <form wire:submit.prevent="{{ $isEditMode ? 'update' : 'store' }}">
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="modal-field">
-                            <label>Code</label>
-                            <input type="text" wire:model="code" class="users-input" placeholder="e.g. 1001" />
-                            @error('code') <span class="users-error">{{ $message }}</span> @enderror
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-base-content/70 mb-1.5">Code</label>
+                            <input type="text" wire:model="code" class="w-full px-3.5 py-2.5 border border-base-300 rounded-lg bg-base-100 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-colors" placeholder="e.g. 1001" />
+                            @error('code') <span class="block text-error text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
-                        <div class="modal-field">
-                            <label>Type</label>
-                            <select wire:model="type" class="users-input">
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-base-content/70 mb-1.5">Type</label>
+                            <select wire:model="type" class="w-full px-3.5 py-2.5 border border-base-300 rounded-lg bg-base-100 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-colors appearance-none">
                                 <option value="asset">Asset</option>
                                 <option value="liability">Liability</option>
                                 <option value="equity">Equity</option>
                                 <option value="income">Income</option>
                                 <option value="expense">Expense</option>
                             </select>
-                            @error('type') <span class="users-error">{{ $message }}</span> @enderror
+                            @error('type') <span class="block text-error text-xs mt-1">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
-                    <div class="modal-field mt-4">
-                        <label>Name</label>
-                        <input type="text" wire:model="name" class="users-input" placeholder="Account Name" />
-                        @error('name') <span class="users-error">{{ $message }}</span> @enderror
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-base-content/70 mb-1.5">Name</label>
+                        <input type="text" wire:model="name" class="w-full px-3.5 py-2.5 border border-base-300 rounded-lg bg-base-100 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-colors" placeholder="Account Name" />
+                        @error('name') <span class="block text-error text-xs mt-1">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="modal-field mt-4">
-                        <label>Classification</label>
-                        <select wire:model="classification" class="users-input">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-base-content/70 mb-1.5">Classification</label>
+                        <select wire:model="classification" class="w-full px-3.5 py-2.5 border border-base-300 rounded-lg bg-base-100 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-colors appearance-none">
                             <option value="">Select Classification</option>
                             @foreach($classifications as $option)
                                 <option value="{{ $option }}">{{ $option }}</option>
@@ -146,21 +149,21 @@
                         </select>
                     </div>
 
-                    <div class="modal-field mt-4">
+                    <div class="mb-4">
                         <label class="label cursor-pointer justify-start gap-4">
-                            <span class="label-text font-medium">Active Status</span>
+                            <span class="label-text font-medium text-base-content/70">Active Status</span>
                             <input type="checkbox" wire:model="is_active" class="checkbox checkbox-primary" />
                         </label>
                     </div>
 
-                    <div class="modal-field mt-4">
-                        <label>Description</label>
-                        <textarea wire:model="description" class="users-input h-24" placeholder="Optional description..."></textarea>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-base-content/70 mb-1.5">Description</label>
+                        <textarea wire:model="description" class="w-full px-3.5 py-2.5 border border-base-300 rounded-lg bg-base-100 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-colors h-24" placeholder="Optional description..."></textarea>
                     </div>
 
-                    <div class="modal-footer mt-6">
-                        <button type="button" wire:click="closeModal" class="modal-cancel-btn">Cancel</button>
-                        <button type="submit" class="users-create-btn" wire:loading.attr="disabled">
+                    <div class="flex justify-end gap-3 pt-4 border-t border-base-200 mt-6">
+                        <button type="button" wire:click="closeModal" class="btn btn-ghost border border-base-200 text-base-content/70 hover:text-base-content">Cancel</button>
+                        <button type="submit" class="btn btn-primary text-white gap-2" wire:loading.attr="disabled">
                             <span wire:loading.remove wire:target="store, update">
                                 {{ $isEditMode ? 'Update' : 'Create' }}
                             </span>

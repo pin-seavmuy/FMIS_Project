@@ -1,10 +1,10 @@
 <div>
-    <div class="users-page">
+    <div class="p-8">
         {{-- Header with Create Button --}}
-        <div class="users-header">
+        <div class="flex items-start justify-between mb-6">
             <div>
-                <h1 class="users-title">Users</h1>
-                <p class="users-subtitle">Manage system users</p>
+                <h1 class="text-3xl font-bold text-base-content mb-1">Users</h1>
+                <p class="text-sm text-base-content/70">Manage system users</p>
             </div>
             <div class="flex items-center gap-3">
                 <x-search wire:model.live.debounce.300ms="search" placeholder="Search users..." />
@@ -15,40 +15,42 @@
         </div>
 
         {{-- Success Alert (overlay top-right) --}}
-        <div id="user-success-alert" class="users-alert" style="display:none">
-            <span class="icon-[tabler--circle-check] users-alert-icon"></span>
-            <span id="user-success-msg"></span>
+        <div id="user-success-alert" class="fixed top-6 right-6 z-[9999] hidden items-center gap-2.5 px-6 py-4 bg-base-100 border-l-4 border-green-500 rounded-lg shadow-xl" style="display:none">
+            <span class="icon-[tabler--circle-check] w-5 h-5 text-green-600"></span>
+            <span id="user-success-msg" class="text-sm font-semibold text-green-700"></span>
             <button onclick="document.getElementById('user-success-alert').style.display='none'"
-                class="users-alert-close">&times;</button>
+                class="ml-auto text-base-content/60 hover:text-base-content transition-colors">
+                <span class="icon-[tabler--x] w-5 h-5"></span>
+            </button>
         </div>
 
         {{-- AG Grid Table --}}
-        <div class="users-grid-card">
+        <div class="bg-base-100 border border-base-200 rounded-2xl p-4 overflow-hidden shadow-sm">
             <x-ag-grid id="usersGrid" :rowData="$datas" :columnDefs="$columns" updateEvent="users-updated" />
         </div>
     </div>
 
     {{-- User Modal --}}
     <x-modal id="createUserModal" :title="$isEditMode ? 'Edit User' : 'Create New User'" icon="tabler--user">
-        <div class="modal-field">
-            <label>Name</label>
-            <input wire:model="userName" placeholder="Full name" class="users-input" />
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-base-content/70 mb-1.5">Name</label>
+            <input wire:model="userName" placeholder="Full name" class="w-full px-3.5 py-2.5 border border-base-300 rounded-lg bg-base-100 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-colors" />
             @error('userName')
-                <span class="users-error">{{ $message }}</span>
+                <span class="block text-error text-xs mt-1">{{ $message }}</span>
             @enderror
         </div>
-        <div class="modal-field">
-            <label>Email</label>
-            <input wire:model="userEmail" placeholder="Email address" class="users-input" />
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-base-content/70 mb-1.5">Email</label>
+            <input wire:model="userEmail" placeholder="Email address" class="w-full px-3.5 py-2.5 border border-base-300 rounded-lg bg-base-100 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-colors" />
             @error('userEmail')
-                <span class="users-error">{{ $message }}</span>
+                <span class="block text-error text-xs mt-1">{{ $message }}</span>
             @enderror
         </div>
-        <div class="modal-field">
-            <label>Password {{ $isEditMode ? '(Leave blank to keep current)' : '' }}</label>
-            <input wire:model="userPassword" type="password" placeholder="Password" class="users-input" />
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-base-content/70 mb-1.5">Password {{ $isEditMode ? '(Leave blank to keep current)' : '' }}</label>
+            <input wire:model="userPassword" type="password" placeholder="Password" class="w-full px-3.5 py-2.5 border border-base-300 rounded-lg bg-base-100 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-colors" />
             @error('userPassword')
-                <span class="users-error">{{ $message }}</span>
+                <span class="block text-error text-xs mt-1">{{ $message }}</span>
             @enderror
         </div>
 
@@ -66,23 +68,23 @@
     {{-- View User Modal --}}
     <x-modal id="viewUserModal" title="User Details" icon="tabler--eye">
         @if ($viewUser)
-            <div class="view-field">
-                <span class="view-label">Name</span>
-                <span class="view-value">{{ $viewUser->name }}</span>
+            <div class="flex justify-between items-center py-3 border-b border-base-200 last:border-0">
+                <span class="text-sm font-medium text-base-content/70">Name</span>
+                <span class="text-sm font-semibold text-base-content">{{ $viewUser->name }}</span>
             </div>
-            <div class="view-field">
-                <span class="view-label">Email</span>
-                <span class="view-value">{{ $viewUser->email }}</span>
+            <div class="flex justify-between items-center py-3 border-b border-base-200 last:border-0">
+                <span class="text-sm font-medium text-base-content/70">Email</span>
+                <span class="text-sm font-semibold text-base-content">{{ $viewUser->email }}</span>
             </div>
-            <div class="view-field">
-                <span class="view-label">Email Verified</span>
+            <div class="flex justify-between items-center py-3 border-b border-base-200 last:border-0">
+                <span class="text-sm font-medium text-base-content/70">Email Verified</span>
                 <span
-                    class="view-value">{{ $viewUser->email_verified_at ? \Carbon\Carbon::parse($viewUser->email_verified_at)->format('M d, Y') : 'Not verified' }}</span>
+                    class="text-sm font-semibold text-base-content">{{ $viewUser->email_verified_at ? \Carbon\Carbon::parse($viewUser->email_verified_at)->format('M d, Y') : 'Not verified' }}</span>
             </div>
-            <div class="view-field">
-                <span class="view-label">Created</span>
+            <div class="flex justify-between items-center py-3 border-b border-base-200 last:border-0">
+                <span class="text-sm font-medium text-base-content/70">Created</span>
                 <span
-                    class="view-value">{{ \Carbon\Carbon::parse($viewUser->created_at)->format('M d, Y h:i A') }}</span>
+                    class="text-sm font-semibold text-base-content">{{ \Carbon\Carbon::parse($viewUser->created_at)->format('M d, Y h:i A') }}</span>
             </div>
         @endif
 
@@ -100,7 +102,7 @@
 
     {{-- Delete Confirmation Modal --}}
     <x-modal id="deleteUserModal" title="Delete User" icon="tabler--alert-triangle" titleClass="text-red-600">
-        <p>Are you sure you want to delete this user? This action cannot be undone.</p>
+        <p class="text-base-content/80">Are you sure you want to delete this user? This action cannot be undone.</p>
 
         <x-slot:footer>
             <x-btn variant="cancel"
