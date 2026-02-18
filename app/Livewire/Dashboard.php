@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -21,6 +22,12 @@ class Dashboard extends Component
     #[On('smis-session-ready')]
     public function handleSession(string $accessToken = '', array $roles = [], array $permissions = [], ?array $profile = null): void
     {
+        Log::info('SSO Session Ready', [
+            'profile' => $profile,
+            'roles' => $roles,
+            'permissions' => $permissions
+        ]);
+        
         $this->accessToken = $accessToken;
         $this->needsLogin = false;
         $this->roles = $roles;

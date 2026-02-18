@@ -79,16 +79,18 @@
                 window.location.href = '/';
             });
 
-            document.addEventListener('smis-session:ready', (event) => {
-                const d = event.detail || {};
-                Livewire.dispatch('smis-session-ready', {
-                    accessToken: d.accessToken || '',
-                    roles: d.roles || [],
-                    permissions: d.permissions || [],
-                    profile: d.profile || null,
+                // Forward SSO events to Livewire
+                document.addEventListener('smis-session:ready', (event) => {
+                    console.log('SSO Context:', event.detail); // Debug login context
+                    const d = event.detail || {};
+                    Livewire.dispatch('smis-session-ready', {
+                        accessToken: d.accessToken || '',
+                        roles: d.roles || [],
+                        permissions: d.permissions || [],
+                        profile: d.profile || null,
+                    });
                 });
-            });
-        })();
+            })();
 
         // ── Sidebar Toggle ──
         (function() {
