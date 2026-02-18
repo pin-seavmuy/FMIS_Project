@@ -1,7 +1,7 @@
 @props(['active' => ''])
 
 <aside
-    class="fixed top-0 left-0 w-[260px] h-screen bg-base-100/80 backdrop-blur-xl border-r border-gray-200 flex flex-col z-[90] transition-[width,transform] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden [.sidebar-collapsed_&]:w-[72px] -translate-x-full md:translate-x-0 [.sidebar-mobile-open_&]:translate-x-0 [.sidebar-mobile-open_&]:shadow-2xl print:hidden"
+    class="fixed top-0 left-0 w-[260px] h-screen bg-base-100/80 backdrop-blur-xl border-r border-base-200 flex flex-col z-[90] transition-[width,transform] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden [.sidebar-collapsed_&]:w-[72px] -translate-x-full md:translate-x-0 [.sidebar-mobile-open_&]:translate-x-0 [.sidebar-mobile-open_&]:shadow-2xl print:hidden"
     id="sidebar">
     {{-- Logo / Brand --}}
     <div

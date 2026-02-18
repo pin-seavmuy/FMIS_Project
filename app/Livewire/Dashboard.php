@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\ChartOfAccount;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -27,7 +29,7 @@ class Dashboard extends Component
             'roles' => $roles,
             'permissions' => $permissions
         ]);
-        
+
         $this->accessToken = $accessToken;
         $this->needsLogin = false;
         $this->roles = $roles;
@@ -68,6 +70,8 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.dashboard');
+        $totalUsers = User::count();
+        $totalCOA = ChartOfAccount::count();
+        return view('livewire.dashboard', compact('totalUsers', 'totalCOA'));
     }
 }
