@@ -3,6 +3,8 @@
 use App\Livewire\Dashboard;
 use App\Livewire\Placeholder;
 use App\Livewire\ListUser;
+use App\Livewire\JournalEntry\JournalEntryList;
+use App\Livewire\JournalEntry\JournalEntryForm;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -14,6 +16,10 @@ Route::group(['prefix'=>'user'], function(){
 });
 
 // Financial Routes
+Route::get('/journal-entries', JournalEntryList::class)->name('journal-entries.index');
+Route::get('/journal-entries/create', JournalEntryForm::class)->name('journal-entries.create');
+Route::get('/journal-entries/{entry}/edit', JournalEntryForm::class)->name('journal-entries.edit');
+
 Route::get('/coa', App\Livewire\Coa::class)->name('coa');
 Route::get('/accounting', Placeholder::class)->name('accounting')->defaults('title', 'Accounting');
 Route::get('/banking', Placeholder::class)->name('banking')->defaults('title', 'Banking');

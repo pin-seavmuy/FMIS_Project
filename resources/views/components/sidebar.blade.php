@@ -49,6 +49,13 @@
             <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Chart of Accounts') }}</span>
         </a>
 
+        {{-- Journal Entries --}}
+        <a href="{{ route('journal-entries.index') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('journal-entries.*') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--book] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Journal Entries') }}</span>
+        </a>
+
         {{-- Accounting --}}
         <a href="{{ route('accounting') }}"
             class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('accounting') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
