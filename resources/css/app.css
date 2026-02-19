@@ -113,9 +113,7 @@ body {
     min-height: 100vh;
     font-family: "Battambang", "Inter", sans-serif;
     color: var(--text-primary);
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
+    color: var(--text-primary);
 }
 
 /* ── AG Grid Theme Overrides ─────────────────────────────────── */

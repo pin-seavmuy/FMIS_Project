@@ -3,13 +3,13 @@
         {{-- Header --}}
         <div class="flex justify-between items-end mb-6">
             <div>
-                <h1 class="text-3xl font-bold text-base-content mb-1">Chart of Accounts</h1>
-                <p class="text-sm text-base-content/70">Manage your financial structure</p>
+                <h1 class="text-3xl font-bold text-base-content mb-1">{{ __('Chart of Accounts') }}</h1>
+                <p class="text-sm text-base-content/70">{{ __('Manage your financial structure') }}</p>
             </div>
             <div class="flex items-center gap-3">
-                <x-search wire:model.live.debounce.300ms="search" placeholder="Search accounts..." />
-                <x-btn variant="primary" icon="tabler--plus" wire:click="openModal">
-                    Add Account
+                <x-search wire:model.live.debounce.300ms="search" placeholder="{{ __('Search') }}" />
+                <x-btn variant="primary" icon="icon-[tabler--plus]" wire:click="openModal">
+                    {{ __('Add Account') }}
                 </x-btn>
             </div>
         </div>
@@ -31,7 +31,7 @@
     </div>
 
     {{-- Create / Edit Account Modal --}}
-    <x-modal id="coaFormModal" :title="$isEditMode ? 'Edit Account' : 'Create New Account'" icon="tabler--list-tree">
+    <x-modal id="coaFormModal" :title="$isEditMode ? 'Edit Account' : 'Create New Account'" icon="icon-[tabler--list-tree]">
         <div class="grid grid-cols-2 gap-4">
             <div class="mb-4">
                 <label class="block text-sm font-medium text-base-content/70 mb-1.5">Code</label>
@@ -96,7 +96,7 @@
         <x-slot:footer>
             <x-btn variant="cancel"
                 onclick="document.getElementById('coaFormModal').style.display='none'">Cancel</x-btn>
-            <x-btn variant="primary" icon="tabler--check" :loading="true" loadingTarget="store, update"
+            <x-btn variant="primary" icon="icon-[tabler--check]" :loading="true" loadingTarget="store, update"
                 loadingText="Saving..." wire:click="{{ $isEditMode ? 'update' : 'store' }}"
                 wire:loading.attr="disabled">
                 {{ $isEditMode ? 'Update' : 'Create' }}
@@ -105,7 +105,7 @@
     </x-modal>
 
     {{-- View Account Modal --}}
-    <x-modal id="viewAccountModal" title="Account Details" icon="tabler--eye">
+    <x-modal id="viewAccountModal" title="Account Details" icon="icon-[tabler--eye]">
         @if ($viewAccount)
             <div class="flex justify-between items-center py-3 border-b border-base-200 last:border-0">
                 <span class="text-sm font-medium text-base-content/70">Code</span>
@@ -140,7 +140,7 @@
             <x-btn variant="cancel"
                 onclick="document.getElementById('viewAccountModal').style.display='none'">Close</x-btn>
             @if ($viewAccount)
-                <x-btn variant="primary" icon="tabler--pencil" wire:click="edit({{ $viewAccount->id }})"
+                <x-btn variant="primary" icon="icon-[tabler--pencil]" wire:click="edit({{ $viewAccount->id }})"
                     onclick="document.getElementById('viewAccountModal').style.display='none'">
                     Edit
                 </x-btn>
@@ -149,13 +149,13 @@
     </x-modal>
 
     {{-- Delete Confirmation Modal --}}
-    <x-modal id="deleteAccountModal" title="Delete Account" icon="tabler--alert-triangle" titleClass="text-red-600">
+    <x-modal id="deleteAccountModal" title="Delete Account" icon="icon-[tabler--alert-triangle]" titleClass="text-red-600">
         <p class="text-base-content/80">Are you sure you want to delete this account? This action cannot be undone.</p>
 
         <x-slot:footer>
             <x-btn variant="cancel"
                 onclick="document.getElementById('deleteAccountModal').style.display='none'">Cancel</x-btn>
-            <x-btn variant="danger" icon="tabler--trash" wire:click="delete"
+            <x-btn variant="danger" icon="icon-[tabler--trash]" wire:click="delete"
                 onclick="document.getElementById('deleteAccountModal').style.display='none'">
                 Delete
             </x-btn>

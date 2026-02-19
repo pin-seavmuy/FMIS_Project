@@ -2,7 +2,7 @@
     'title' => '',
     'value' => '0',
     'subtitle' => '',
-    'icon' => 'tabler--chart-bar',
+    'icon' => 'icon-[tabler--chart-bar]',
     'color' => 'primary',
 ])
 
@@ -37,7 +37,7 @@
             @endif
         </div>
         <div class="w-10 h-10 rounded-xl {{ $borderBg }} flex items-center justify-center">
-            <span class="icon-[{{ $icon }}] w-5 h-5 {{ $iconColor }}"></span>
+            <span class="{{ $icon }} w-5 h-5 {{ $iconColor }}"></span>
         </div>
     </div>
     @if ($slot->isNotEmpty())

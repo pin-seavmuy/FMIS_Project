@@ -23,5 +23,13 @@ Route::get('/bills', Placeholder::class)->name('bills')->defaults('title', 'Bill
 // Reports
 Route::get('/reports', Placeholder::class)->name('reports')->defaults('title', 'Reports');
 
+// Language Switch Route
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'kh'])) {
+        session(['locale' => $locale]);
+    }
+    return back();
+})->name('lang.switch');
+
 // System
 Route::get('/settings', Placeholder::class)->name('settings')->defaults('title', 'Settings');

@@ -34,7 +34,7 @@
     @if ($loading && $loadingTarget)
         <span wire:loading.remove wire:target="{{ $loadingTarget }}" class="btn-content">
             @if ($icon)
-                <span class="icon-[{{ $icon }}]" style="width:16px;height:16px"></span>
+                <span class="{{ $icon }}" style="width:16px;height:16px"></span>
             @endif
             {{ $slot }}
         </span>
@@ -44,7 +44,7 @@
         </span>
     @else
         @if ($icon)
-            <span class="icon-[{{ $icon }}]" style="width:16px;height:16px"></span>
+            <span class="{{ $icon }}" style="width:16px;height:16px"></span>
         @endif
         {{ $slot }}
     @endif

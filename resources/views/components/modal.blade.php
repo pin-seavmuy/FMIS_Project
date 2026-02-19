@@ -1,4 +1,4 @@
-@props(['id', 'title' => '', 'icon' => 'tabler--layout-grid', 'titleClass' => '', 'maxWidth' => '500px'])
+@props(['id', 'title' => '', 'icon' => 'icon-[tabler--layout-grid]', 'titleClass' => '', 'maxWidth' => '500px'])
 
 <div id="{{ $id }}"
     class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-9000 animate-[fadeIn_0.2s_ease]"
@@ -9,7 +9,7 @@
         <div class="flex items-center justify-between px-6 py-5 border-b border-base-200">
             <h3 class="flex items-center gap-2 text-lg font-semibold text-base-content m-0 {{ $titleClass }}">
                 @if ($icon)
-                    <span class="icon-[{{ $icon }}] w-5 h-5"></span>
+                    <span class="{{ $icon }} w-5 h-5"></span>
                 @endif
                 {{ $title }}
             </h3>

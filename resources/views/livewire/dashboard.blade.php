@@ -2,14 +2,14 @@
     {{-- Authenticated Dashboard --}}
     <div class="max-w-full mx-auto py-8 px-12">
         <div class="mb-6">
-            <h1 class="text-3xl font-bold text-base-content mb-1">Dashboard</h1>
-            <p class="text-sm text-base-content/70">Overview of your account and system status</p>
+            <h1 class="text-3xl font-bold text-base-content mb-1">{{ __('Dashboard') }}</h1>
+            <p class="text-sm text-base-content/70">{{ __('Overview of your account and system status') }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <x-stat-card title="Total Users" :value="number_format($totalUsers)" subtitle="Registered users" icon="tabler--users"
+            <x-stat-card title="{{ __('Total Users') }}" :value="number_format($totalUsers)" subtitle="{{ __('Registered users') }}" icon="icon-[tabler--users]"
                 color="primary" />
-            <x-stat-card title="Total COA" :value="number_format($totalCOA)" subtitle="Chart of Accounts" icon="tabler--list-tree"
+            <x-stat-card title="{{ __('Total COA') }}" :value="number_format($totalCOA)" subtitle="{{ __('Chart of Accounts') }}" icon="icon-[tabler--list-tree]"
                 color="secondary" />
         </div>
 

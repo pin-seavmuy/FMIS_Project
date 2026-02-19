@@ -3,13 +3,13 @@
         {{-- Header with Create Button --}}
         <div class="flex items-start justify-between mb-6">
             <div>
-                <h1 class="text-3xl font-bold text-base-content mb-1">Users</h1>
-                <p class="text-sm text-base-content/70">Manage system users</p>
+                <h1 class="text-3xl font-bold text-base-content mb-1">{{ __('Users') }}</h1>
+                <p class="text-sm text-base-content/70">{{ __('Manage system users') }}</p>
             </div>
             <div class="flex items-center gap-3">
-                <x-search wire:model.live.debounce.300ms="search" placeholder="Search users..." />
-                <x-btn variant="primary" icon="tabler--plus" wire:click="openCreateModal">
-                    Create User
+                <x-search wire:model.live.debounce.300ms="search" placeholder="{{ __('Search') }}" />
+                <x-btn variant="primary" icon="icon-[tabler--plus]" wire:click="openCreateModal">
+                    {{ __('Create User') }}
                 </x-btn>
             </div>
         </div>
@@ -31,7 +31,7 @@
     </div>
 
     {{-- User Modal --}}
-    <x-modal id="createUserModal" :title="$isEditMode ? 'Edit User' : 'Create New User'" icon="tabler--user">
+    <x-modal id="createUserModal" :title="$isEditMode ? 'Edit User' : 'Create New User'" icon="icon-[tabler--user]">
         <div class="mb-4">
             <label class="block text-sm font-medium text-base-content/70 mb-1.5">Name</label>
             <input wire:model="userName" placeholder="Full name"
@@ -61,7 +61,7 @@
         <x-slot:footer>
             <x-btn variant="cancel"
                 onclick="document.getElementById('createUserModal').style.display='none'">Cancel</x-btn>
-            <x-btn variant="primary" icon="tabler--check" :loading="true" loadingTarget="createUser, updateUser"
+            <x-btn variant="primary" icon="icon-[tabler--check]" :loading="true" loadingTarget="createUser, updateUser"
                 loadingText="Saving..." wire:click="{{ $isEditMode ? 'updateUser' : 'createUser' }}"
                 wire:loading.attr="disabled">
                 {{ $isEditMode ? 'Update' : 'Create' }}
@@ -70,7 +70,7 @@
     </x-modal>
 
     {{-- View User Modal --}}
-    <x-modal id="viewUserModal" title="User Details" icon="tabler--eye">
+    <x-modal id="viewUserModal" title="User Details" icon="icon-[tabler--eye]">
         @if ($viewUser)
             <div class="flex justify-between items-center py-3 border-b border-base-200 last:border-0">
                 <span class="text-sm font-medium text-base-content/70">Name</span>
@@ -96,7 +96,7 @@
             <x-btn variant="cancel"
                 onclick="document.getElementById('viewUserModal').style.display='none'">Close</x-btn>
             @if ($viewUser)
-                <x-btn variant="primary" icon="tabler--pencil" wire:click="editUser({{ $viewUser->id }})"
+                <x-btn variant="primary" icon="icon-[tabler--pencil]" wire:click="editUser({{ $viewUser->id }})"
                     onclick="document.getElementById('viewUserModal').style.display='none'">
                     Edit
                 </x-btn>
@@ -105,13 +105,13 @@
     </x-modal>
 
     {{-- Delete Confirmation Modal --}}
-    <x-modal id="deleteUserModal" title="Delete User" icon="tabler--alert-triangle" titleClass="text-red-600">
+    <x-modal id="deleteUserModal" title="Delete User" icon="icon-[tabler--alert-triangle]" titleClass="text-red-600">
         <p class="text-base-content/80">Are you sure you want to delete this user? This action cannot be undone.</p>
 
         <x-slot:footer>
             <x-btn variant="cancel"
                 onclick="document.getElementById('deleteUserModal').style.display='none'">Cancel</x-btn>
-            <x-btn variant="danger" icon="tabler--trash" wire:click="deleteUser({{ $userId }})"
+            <x-btn variant="danger" icon="icon-[tabler--trash]" wire:click="deleteUser({{ $userId }})"
                 onclick="document.getElementById('deleteUserModal').style.display='none'">
                 Delete
             </x-btn>

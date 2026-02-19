@@ -5,7 +5,7 @@
         <span class="icon-[tabler--search] text-gray-400 w-5 h-5"></span>
     </div>
     <input 
-        {{ $attributes->merge(['class' => 'input input-bordered w-full pl-10 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all']) }}
+        {{ $attributes->merge(['class' => 'input input-bordered border-base-content w-full pl-10 focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition-[box-shadow,border-color] duration-200']) }}
         type="text" 
         placeholder="{{ $placeholder }}"
     />

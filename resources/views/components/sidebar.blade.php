@@ -25,62 +25,85 @@
             class="block text-[11px] font-bold uppercase tracking-wider text-base-content/40 px-3 py-1.5 mt-2 mb-1 whitespace-nowrap [.sidebar-collapsed_&]:hidden">General</span>
 
         <a href="{{ route('dashboard') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('dashboard') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--layout-dashboard] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Dashboard</span>
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('dashboard') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--layout-dashboard] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Dashboard') }}</span>
         </a>
 
-        <span
-            class="block text-[11px] font-bold uppercase tracking-wider text-base-content/40 px-3 py-1.5 mt-2 mb-1 whitespace-nowrap [.sidebar-collapsed_&]:hidden">Finance</span>
-
-        <a href="{{ route('accounting') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('accounting') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--book-2] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Accounting</span>
-        </a>
-        <a href="{{ route('coa') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('coa') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--list-tree] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Chart of Accounts</span>
-        </a>
-        <a href="{{ route('banking') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('banking') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--building-bank] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Banking</span>
-        </a>
-        <a href="{{ route('invoices') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('invoices') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--file-invoice] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Invoices</span>
-        </a>
-        <a href="{{ route('bills') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('bills') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--receipt] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Bills</span>
-        </a>
-
-        <span
-            class="block text-[11px] font-bold uppercase tracking-wider text-base-content/40 px-3 py-1.5 mt-2 mb-1 whitespace-nowrap [.sidebar-collapsed_&]:hidden">Reports</span>
-
-        <a href="{{ route('reports') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('reports') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--report-analytics] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Reports</span>
-        </a>
-
-        <span
-            class="block text-[11px] font-bold uppercase tracking-wider text-base-content/40 px-3 py-1.5 mt-2 mb-1 whitespace-nowrap [.sidebar-collapsed_&]:hidden">System</span>
-
+        {{-- Users --}}
         <a href="{{ route('users') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('users') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--users] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Users</span>
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('users') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--users] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Users') }}</span>
         </a>
+
+        {{-- Divider --}}
+        <div class="pt-4 pb-2">
+            <p class="px-3 text-xs font-bold text-base-content/40 uppercase tracking-wider [.sidebar-collapsed_&]:hidden">{{ __('Financials') }}</p>
+        </div>
+
+        {{-- COA --}}
+        <a href="{{ route('coa') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('coa') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--list-tree] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Chart of Accounts') }}</span>
+        </a>
+
+        {{-- Accounting --}}
+        <a href="{{ route('accounting') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('accounting') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--notebook] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Accounting') }}</span>
+        </a>
+
+        {{-- Banking --}}
+        <a href="{{ route('banking') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('banking') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--building-bank] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Banking') }}</span>
+        </a>
+
+        {{-- Divider --}}
+        <div class="pt-4 pb-2">
+            <p class="px-3 text-xs font-bold text-base-content/40 uppercase tracking-wider [.sidebar-collapsed_&]:hidden">{{ __('Sales & Purchases') }}</p>
+        </div>
+
+        {{-- Invoices --}}
+        <a href="{{ route('invoices') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('invoices') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--file-invoice] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Invoices') }}</span>
+        </a>
+
+        {{-- Bills --}}
+        <a href="{{ route('bills') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('bills') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--receipt] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Bills') }}</span>
+        </a>
+
+        {{-- Reports --}}
+        <a href="{{ route('reports') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('reports') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--chart-pie] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Reports') }}</span>
+        </a>
+
+        {{-- Divider --}}
+        <div class="pt-4 pb-2">
+            <p class="px-3 text-xs font-bold text-base-content/40 uppercase tracking-wider [.sidebar-collapsed_&]:hidden">{{ __('System') }}</p>
+        </div>
+
+        {{-- Settings --}}
         <a href="{{ route('settings') }}"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-base-content/70 hover:bg-base-200 hover:text-base-content transition-all mb-0.5 whitespace-nowrap [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('settings') ? 'bg-primary/10 text-primary font-semibold shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]' : '' }}">
-            <span class="icon-[tabler--settings] w-[18px] h-[18px] flex-shrink-0"></span>
-            <span class="[.sidebar-collapsed_&]:hidden">Settings</span>
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group [.sidebar-collapsed_&]:justify-center {{ request()->routeIs('settings') ? 'bg-indigo-50 text-indigo-600 font-semibold shadow-sm ring-1 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 dark:ring-indigo-500/20' : 'text-base-content/70 hover:bg-base-200 hover:text-base-content' }}">
+            <span class="icon-[tabler--settings] w-5 h-5 transition-transform group-hover:scale-110"></span>
+            <span class="text-sm font-medium tracking-wide [.sidebar-collapsed_&]:hidden">{{ __('Settings') }}</span>
         </a>
+
+        <div class="flex-1"></div>
+
+
     </nav>
 
     {{-- Sidebar Footer --}}
