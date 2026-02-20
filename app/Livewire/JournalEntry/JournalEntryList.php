@@ -9,26 +9,35 @@ use Livewire\Attributes\Title;
 #[Title('Journal Entries')]
 class JournalEntryList extends Component
 {
-    public $editingEntryId = null;
+    public $deleteId = null;
+    public $postId = null;
 
     protected $listeners = [
-        'confirm-delete-entry' => 'delete',
-        'confirm-post-entry' => 'post', 
+        'trigger-delete-entry' => 'confirmDelete',
+        'trigger-post-entry' => 'confirmPost',
         'refresh-journal-entries' => '$refresh',
         'journal-entry-saved' => 'handleSaved',
         'edit-entry' => 'edit', 
         'view-entry' => 'view',
-        'create-entry' => 'create',
     ];
 
-    public function post($id)
+    public function confirmPost($id)
     {
-        $entry = JournalEntry::find($id);
+        $this->postId = $id;
+        $this->dispatch('open-post-modal');
+    }
+
+    public function post()
+    {
+        if (!$this->postId) return;
+
+        $entry = JournalEntry::find($this->postId);
 
         if ($entry && $entry->status === 'draft') {
             try {
                 app(\App\Services\JournalEntryService::class)->postEntry($entry);
                 $this->dispatch('journal-entry-posted'); 
+                $this->postId = null;
             } catch (\Exception $e) {
                 $this->dispatch('error', $e->getMessage());
             }
@@ -60,13 +69,22 @@ class JournalEntryList extends Component
         $this->dispatch('refresh-journal-entries');
     }
 
-    public function delete($id)
+    public function confirmDelete($id)
     {
-        $entry = JournalEntry::find($id);
+        $this->deleteId = $id;
+        $this->dispatch('open-delete-modal');
+    }
+
+    public function delete()
+    {
+        if (!$this->deleteId) return;
+
+        $entry = JournalEntry::find($this->deleteId);
         
         if ($entry && $entry->status === 'draft') {
             app(\App\Services\JournalEntryService::class)->deleteEntry($entry);
             $this->dispatch('journal-entry-deleted'); 
+            $this->deleteId = null;
         } else {
              $this->dispatch('error', 'Cannot delete posted entry.');
         }

@@ -15,16 +15,8 @@
         </div>
 
         {{-- Success Alert (overlay top-right) --}}
-        <div id="user-success-alert"
-            class="fixed top-6 right-6 z-[9999] hidden items-center gap-2.5 px-6 py-4 bg-base-100 border-l-4 border-green-500 rounded-lg shadow-xl"
-            style="display:none">
-            <span class="icon-[tabler--circle-check] w-5 h-5 text-green-600"></span>
-            <span id="user-success-msg" class="text-sm font-semibold text-green-700"></span>
-            <button onclick="document.getElementById('user-success-alert').style.display='none'"
-                class="ml-auto text-base-content/60 hover:text-base-content transition-colors">
-                <span class="icon-[tabler--x] w-5 h-5"></span>
-            </button>
-        </div>
+        <x-alert id="user-success-alert" type="success" />
+        <x-alert id="user-error-alert" type="error" position="top-20 right-6" />
 
         {{-- AG Grid Table --}}
         <x-ag-grid id="usersGrid" :rowData="$datas" :columnDefs="$columns" updateEvent="users-updated" />
@@ -117,26 +109,12 @@
             </x-btn>
         </x-slot:footer>
     </x-modal>
-
+    
     <script>
         // Listen for Livewire events
         document.addEventListener('livewire:init', () => {
             const createModal = document.getElementById('createUserModal');
             const deleteModal = document.getElementById('deleteUserModal');
-            const alert = document.getElementById('user-success-alert');
-            const msg = document.getElementById('user-success-msg');
-
-            const showSuccess = (message) => {
-                if (createModal) createModal.style.display = 'none';
-                if (deleteModal) deleteModal.style.display = 'none';
-                if (alert && msg) {
-                    msg.textContent = message;
-                    alert.style.display = 'flex';
-                    setTimeout(() => {
-                        alert.style.display = 'none';
-                    }, 4000);
-                }
-            };
 
             Livewire.on('open-modal', () => {
                 if (createModal) createModal.style.display = 'flex';
@@ -151,9 +129,24 @@
                 if (deleteModal) deleteModal.style.display = 'flex';
             });
 
-            Livewire.on('user-created', () => showSuccess('User created successfully!'));
-            Livewire.on('user-updated', () => showSuccess('User updated successfully!'));
-            Livewire.on('user-deleted', () => showSuccess('User deleted successfully!'));
+            Livewire.on('user-created', () => {
+                if (createModal) createModal.style.display = 'none';
+                fmisAlerts.show('user-success-alert', 'User created successfully!');
+            });
+            Livewire.on('user-updated', () => {
+                if (createModal) createModal.style.display = 'none';
+                fmisAlerts.show('user-success-alert', 'User updated successfully!');
+            });
+            Livewire.on('user-deleted', () => {
+                if (deleteModal) deleteModal.style.display = 'none';
+                fmisAlerts.show('user-success-alert', 'User deleted successfully!');
+            });
+
+            Livewire.on('show-error', (data) => {
+                const msg = typeof data === 'string' ? data : (data.message || 'An error occurred');
+                fmisAlerts.show('user-error-alert', msg);
+            });
+            Livewire.on('error', (message) => fmisAlerts.show('user-error-alert', message));
         });
     </script>
 </div>

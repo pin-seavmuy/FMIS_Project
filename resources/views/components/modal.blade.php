@@ -2,7 +2,8 @@
 
 <div id="{{ $id }}"
     class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-9000 animate-[fadeIn_0.2s_ease]"
-    style="display:none" onclick="if(event.target===this)this.style.display='none'">
+    style="display:none" onclick="if(event.target===this)this.style.display='none'"
+    wire:ignore.self>
     <div class="bg-base-100 border border-base-200 rounded-2xl w-full mx-4 shadow-2xl animate-[slideUp_0.3s_ease]"
         style="max-width: {{ $maxWidth }}">
         {{-- Header --}}

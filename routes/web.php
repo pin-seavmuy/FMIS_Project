@@ -21,6 +21,7 @@ Route::get('/journal-entries/create', JournalEntryForm::class)->name('journal-en
 Route::get('/journal-entries/{entry}/edit', JournalEntryForm::class)->name('journal-entries.edit');
 
 Route::get('/coa', App\Livewire\Coa::class)->name('coa');
+Route::get('/ledger/{accountId}', App\Livewire\AccountLedger::class)->name('ledger');
 Route::get('/accounting', Placeholder::class)->name('accounting')->defaults('title', 'Accounting');
 Route::get('/banking', Placeholder::class)->name('banking')->defaults('title', 'Banking');
 Route::get('/invoices', Placeholder::class)->name('invoices')->defaults('title', 'Invoices');

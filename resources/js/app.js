@@ -30,9 +30,13 @@ window.FmisFormatters = {
 
 // Helper: generate a single action button HTML string
 // type can be: 'view', 'edit', 'delete', 'download' (or any custom)
-window.makeActionBtn = (type, onclick, titleOverride) => {
-    const base =
-        "inline-flex items-center justify-center p-1.5 border-none bg-transparent cursor-pointer rounded-lg transition-all duration-200 focus:outline-none active:scale-95";
+// Helper: generate a single action button HTML string
+// type can be: 'view', 'edit', 'delete', 'download' (or any custom)
+window.makeActionBtn = (type, onclick, titleOverride, disabled = false) => {
+    const base = disabled
+        ? "inline-flex items-center justify-center p-1.5 border-none bg-transparent cursor-not-allowed rounded-lg transition-all duration-200 opacity-30"
+        : "inline-flex items-center justify-center p-1.5 border-none bg-transparent cursor-pointer rounded-lg transition-all duration-200 focus:outline-none active:scale-95";
+
     const presets = {
         view: {
             icon: "tabler--eye",
@@ -64,6 +68,12 @@ window.makeActionBtn = (type, onclick, titleOverride) => {
             hover: "hover:bg-purple-500/10",
             title: "Post Entry",
         },
+        ledger: {
+            icon: "tabler--book",
+            color: "text-indigo-500",
+            hover: "hover:bg-indigo-500/10",
+            title: "View Ledger",
+        },
     };
     const p = presets[type] || {
         icon: "tabler--dots",
@@ -72,7 +82,11 @@ window.makeActionBtn = (type, onclick, titleOverride) => {
         title: type,
     };
     const title = titleOverride || p.title;
-    return `<button class="${base} ${p.color} ${p.hover}" title="${title}" onclick="${onclick}">
+    const clickHandler = disabled ? '' : `onclick="${onclick}"`;
+    const colorClass = disabled ? 'text-base-content' : p.color;
+    const hoverClass = disabled ? '' : p.hover;
+
+    return `<button class="${base} ${colorClass} ${hoverClass}" title="${title}" ${clickHandler} ${disabled ? 'disabled' : ''}>
                 <span class="icon-[${p.icon}]" style="width:18px;height:18px;display:block"></span>
             </button>`;
 };
@@ -101,7 +115,7 @@ window.FmisRenderers = {
         if (!params.data) return "";
         const id = params.data.id;
         return `<div class="flex gap-1 items-center justify-center h-full">
-            ${makeActionBtn("view", `Livewire.dispatch('view-account', { id: ${id} })`)}
+            ${makeActionBtn("ledger", `window.location.href='/ledger/${id}'`)}
             ${makeActionBtn("edit", `Livewire.dispatch('edit-account', { id: ${id} })`)}
             ${makeActionBtn("delete", `Livewire.dispatch('trigger-delete-coa', { id: ${id} })`)}
         </div>`;
@@ -110,17 +124,19 @@ window.FmisRenderers = {
         if (!params.data) return "";
         const id = params.data.id;
         const status = params.data.status;
+        const isDraft = status === 'draft';
+
         let html = `<div class="flex gap-1 items-center justify-center h-full">`;
 
         // View Button (Always visible)
         html += makeActionBtn("view", `Livewire.dispatch('view-entry', { id: ${id} })`, "View Details");
 
-        // Edit & Delete (Draft only)
-        if (status === 'draft') {
-            html += makeActionBtn("edit", `Livewire.dispatch('edit-entry', { id: ${id} })`, "Edit Entry");
+        // Post Button (Always visible, disabled if not draft)
+        html += makeActionBtn("post", `Livewire.dispatch('trigger-post-entry', { id: ${id} })`, "Post Entry", !isDraft);
 
-            html += makeActionBtn("delete", `if(confirm('Are you sure you want to delete this draft?')) Livewire.dispatch('confirm-delete-entry', { id: ${id} })`, "Delete Entry");
-        }
+        // Edit & Delete (Always visible, but disabled if not draft)
+        html += makeActionBtn("edit", `Livewire.dispatch('edit-entry', { id: ${id} })`, "Edit Entry", !isDraft);
+        html += makeActionBtn("delete", `Livewire.dispatch('trigger-delete-entry', { id: ${id} })`, "Delete Entry", !isDraft);
 
         html += `</div>`;
         return html;

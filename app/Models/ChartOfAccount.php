@@ -18,5 +18,8 @@ class ChartOfAccount extends Model
         'description',
     ];
 
-    // Relationships removed for flat structure
+    public function lines()
+    {
+        return $this->hasMany(JournalEntryLine::class, 'account_id');
+    }
 }
