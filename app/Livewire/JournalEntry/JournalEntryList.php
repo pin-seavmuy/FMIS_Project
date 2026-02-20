@@ -23,21 +23,16 @@ class JournalEntryList extends Component
 
     public function confirmPost($id)
     {
-        $this->postId = $id;
-        $this->dispatch('open-post-modal');
+        $this->dispatch('open-post-modal', id: $id);
     }
 
-    public function post()
+    public function post($id)
     {
-        if (!$this->postId) return;
-
-        $entry = JournalEntry::find($this->postId);
-
+        $entry = JournalEntry::find($id);
         if ($entry && $entry->status === 'draft') {
             try {
                 app(\App\Services\JournalEntryService::class)->postEntry($entry);
                 $this->dispatch('journal-entry-posted'); 
-                $this->postId = null;
             } catch (\Exception $e) {
                 $this->dispatch('error', $e->getMessage());
             }
@@ -71,20 +66,15 @@ class JournalEntryList extends Component
 
     public function confirmDelete($id)
     {
-        $this->deleteId = $id;
-        $this->dispatch('open-delete-modal');
+        $this->dispatch('open-delete-modal', id: $id);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        if (!$this->deleteId) return;
-
-        $entry = JournalEntry::find($this->deleteId);
-        
+        $entry = JournalEntry::find($id);
         if ($entry && $entry->status === 'draft') {
             app(\App\Services\JournalEntryService::class)->deleteEntry($entry);
             $this->dispatch('journal-entry-deleted'); 
-            $this->deleteId = null;
         } else {
              $this->dispatch('error', 'Cannot delete posted entry.');
         }

@@ -145,18 +145,14 @@ class Coa extends Component
 
     public function confirmDelete($id)
     {
-        $this->deleteId = $id;
-        $this->dispatch('open-delete-coa-modal');
+        $this->dispatch('open-delete-coa-modal', id: $id);
     }
 
-    public function delete(ChartOfAccountService $service)
+    public function delete($id, ChartOfAccountService $service)
     {
-        if ($this->deleteId) {
-            $service->delete($this->deleteId);
-            $this->refreshGrid($service);
-            $this->dispatch('coa-deleted');
-            $this->deleteId = null;
-        }
+        $service->delete($id);
+        $this->refreshGrid($service);
+        $this->dispatch('coa-deleted');
     }
 
     private function refreshGrid(ChartOfAccountService $service)

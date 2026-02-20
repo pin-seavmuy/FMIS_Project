@@ -52,14 +52,28 @@
                 if (el) el.style.display = 'none';
             });
 
-            Livewire.on('open-delete-modal', () => {
-                const el = document.getElementById('deleteEntryModal');
-                if (el) el.style.display = 'flex';
+            Livewire.on('open-delete-modal', (event) => {
+                fmisConfirm({
+                    title: 'Delete Journal Entry',
+                    message: 'Are you sure you want to delete this entry? This action cannot be undone.',
+                    type: 'danger',
+                    confirmText: 'Delete Entry',
+                    onConfirm: () => {
+                        Livewire.dispatch('delete', { id: event.id });
+                    }
+                });
             });
 
-            Livewire.on('open-post-modal', () => {
-                const el = document.getElementById('postEntryModal');
-                if (el) el.style.display = 'flex';
+            Livewire.on('open-post-modal', (event) => {
+                fmisConfirm({
+                    title: 'Post Journal Entry',
+                    message: 'Posting this entry will lock it and prevent further edits. Continue?',
+                    type: 'warning',
+                    confirmText: 'Post Entry',
+                    onConfirm: () => {
+                        Livewire.dispatch('post', { id: event.id });
+                    }
+                });
             });
 
             Livewire.on('journal-entry-saved-msg', () => {
@@ -68,13 +82,9 @@
                 fmisAlerts.show('entry-success-alert', 'Journal Entry saved successfully!');
             });
             Livewire.on('journal-entry-deleted', () => {
-                const el = document.getElementById('deleteEntryModal');
-                if (el) el.style.display = 'none';
                 fmisAlerts.show('entry-success-alert', 'Journal Entry deleted successfully!');
             });
             Livewire.on('journal-entry-posted', () => {
-                const el = document.getElementById('postEntryModal');
-                if (el) el.style.display = 'none';
                 fmisAlerts.show('entry-success-alert', 'Journal Entry posted successfully!');
             });
             

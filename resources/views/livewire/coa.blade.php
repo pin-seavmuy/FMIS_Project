@@ -149,42 +149,16 @@
         </x-slot:footer>
     </x-modal>
 
-    {{-- Delete Confirmation Modal --}}
-    <x-modal id="deleteAccountModal" title="Delete Account" icon="icon-[tabler--alert-triangle]" titleClass="text-red-600">
-        <p class="text-base-content/80">Are you sure you want to delete this account? This action cannot be undone.</p>
-
-        <x-slot:footer>
-            <x-btn variant="cancel"
-                onclick="document.getElementById('deleteAccountModal').style.display='none'">Cancel</x-btn>
-            <x-btn variant="danger" icon="icon-[tabler--trash]" wire:click="delete"
-                onclick="document.getElementById('deleteAccountModal').style.display='none'">
-                Delete
-            </x-btn>
-        </x-slot:footer>
-    </x-modal>
-
     <script>
         document.addEventListener('livewire:init', () => {
             const showSuccess = (message) => {
                 const formModal = document.getElementById('coaFormModal');
                 const viewModal = document.getElementById('viewAccountModal');
-                const deleteModal = document.getElementById('deleteAccountModal');
-                const alert = document.getElementById('coa-success-alert');
-                const msg = document.getElementById('coa-success-msg');
-
+                
                 if (formModal) formModal.style.display = 'none';
                 if (viewModal) viewModal.style.display = 'none';
-                if (deleteModal) deleteModal.style.display = 'none';
                 
-                if (alert && msg) {
-                    msg.textContent = message;
-                    alert.style.display = 'flex';
-                    setTimeout(() => {
-                        // Check if alert still exists before hiding
-                        const currentAlert = document.getElementById('coa-success-alert');
-                        if (currentAlert) currentAlert.style.display = 'none';
-                    }, 4000);
-                }
+                fmisAlerts.show('coa-success-alert', message);
             };
 
             Livewire.on('open-coa-form-modal', () => {
@@ -197,14 +171,21 @@
                 if (el) el.style.display = 'flex';
             });
 
-            Livewire.on('open-delete-coa-modal', () => {
-                const el = document.getElementById('deleteAccountModal');
-                if (el) el.style.display = 'flex';
+            Livewire.on('open-delete-coa-modal', (event) => {
+                fmisConfirm({
+                    title: 'Delete Account',
+                    message: 'Are you sure you want to delete this account? This action cannot be undone.',
+                    type: 'danger',
+                    confirmText: 'Delete Account',
+                    onConfirm: () => {
+                        Livewire.dispatch('delete', { id: event.id });
+                    }
+                });
             });
 
             Livewire.on('coa-created', () => showSuccess('Account created successfully!'));
             Livewire.on('coa-updated-msg', () => showSuccess('Account updated successfully!'));
-            Livewire.on('coa-deleted', () => showSuccess('Account deleted successfully!'));
+            Livewire.on('coa-deleted', () => fmisAlerts.show('coa-success-alert', 'Account deleted successfully!'));
         });
     </script>
 </div>

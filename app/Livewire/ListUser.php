@@ -41,8 +41,7 @@ class ListUser extends BaseComponent
 
     public function confirmDelete($id)
     {
-        $this->userId = $id;
-        $this->dispatch('open-delete-modal');
+        $this->dispatch('open-delete-modal', id: $id);
     }
 
     public function createUser(UserService $service)

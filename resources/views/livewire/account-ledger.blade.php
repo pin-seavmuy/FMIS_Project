@@ -18,19 +18,8 @@
             </div>
 
             {{-- Date Filter --}}
-            <div class="flex items-end gap-2 bg-base-100 p-2 rounded-lg border border-base-200 shadow-sm">
-                <div class="form-control w-full max-w-xs">
-                    <label class="label py-1">
-                        <span class="label-text text-xs font-medium">Start Date</span>
-                    </label>
-                    <input type="date" wire:model.live="startDate" class="input input-sm input-bordered" />
-                </div>
-                <div class="form-control w-full max-w-xs">
-                    <label class="label py-1">
-                        <span class="label-text text-xs font-medium">End Date</span>
-                    </label>
-                    <input type="date" wire:model.live="endDate" class="input input-sm input-bordered" />
-                </div>
+            <div class="bg-base-100 p-2 rounded-lg border border-base-200 shadow-sm">
+                <x-date-range-picker start="startDate" end="endDate" />
             </div>
         </div>
 

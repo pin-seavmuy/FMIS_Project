@@ -95,26 +95,11 @@
             @endif
         </x-slot:footer>
     </x-modal>
-
-    {{-- Delete Confirmation Modal --}}
-    <x-modal id="deleteUserModal" title="Delete User" icon="icon-[tabler--alert-triangle]" titleClass="text-red-600">
-        <p class="text-base-content/80">Are you sure you want to delete this user? This action cannot be undone.</p>
-
-        <x-slot:footer>
-            <x-btn variant="cancel"
-                onclick="document.getElementById('deleteUserModal').style.display='none'">Cancel</x-btn>
-            <x-btn variant="danger" icon="icon-[tabler--trash]" wire:click="deleteUser({{ $userId }})"
-                onclick="document.getElementById('deleteUserModal').style.display='none'">
-                Delete
-            </x-btn>
-        </x-slot:footer>
-    </x-modal>
     
     <script>
         // Listen for Livewire events
         document.addEventListener('livewire:init', () => {
             const createModal = document.getElementById('createUserModal');
-            const deleteModal = document.getElementById('deleteUserModal');
 
             Livewire.on('open-modal', () => {
                 if (createModal) createModal.style.display = 'flex';
@@ -125,8 +110,16 @@
                 if (viewModal) viewModal.style.display = 'flex';
             });
 
-            Livewire.on('open-delete-modal', () => {
-                if (deleteModal) deleteModal.style.display = 'flex';
+            Livewire.on('open-delete-modal', (event) => {
+                fmisConfirm({
+                    title: 'Delete User',
+                    message: 'Are you sure you want to delete this user? This action cannot be undone.',
+                    type: 'danger',
+                    confirmText: 'Delete User',
+                    onConfirm: () => {
+                        Livewire.dispatch('delete-user', { id: event.id });
+                    }
+                });
             });
 
             Livewire.on('user-created', () => {
@@ -138,7 +131,6 @@
                 fmisAlerts.show('user-success-alert', 'User updated successfully!');
             });
             Livewire.on('user-deleted', () => {
-                if (deleteModal) deleteModal.style.display = 'none';
                 fmisAlerts.show('user-success-alert', 'User deleted successfully!');
             });
 

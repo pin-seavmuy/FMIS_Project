@@ -42,6 +42,8 @@
             <x-navbar />
             {{ $slot }}
         </main>
+        
+        <x-confirm />
     </div>
 
     @livewireScripts
