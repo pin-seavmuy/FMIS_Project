@@ -125,8 +125,9 @@
             </div>
             <div class="flex justify-between items-center py-3 border-b border-base-200 last:border-0">
                 <span class="text-sm font-medium text-base-content/70">Status</span>
-                <span
-                    class="badge {{ $viewAccount->is_active ? 'badge-success' : 'badge-error' }} badge-sm">{{ $viewAccount->is_active ? 'Active' : 'Inactive' }}</span>
+                <x-badge :type="$viewAccount->is_active ? 'success' : 'error'">
+                    {{ $viewAccount->is_active ? 'Active' : 'Inactive' }}
+                </x-badge>
             </div>
             @if ($viewAccount->description)
                 <div class="py-3">

@@ -19,7 +19,7 @@
                         ['field' => 'date', 'headerName' => 'Date', 'sortable' => true, 'filter' => true],
                         ['field' => 'reference', 'headerName' => 'Reference', 'sortable' => true, 'filter' => true],
                         ['field' => 'description', 'headerName' => 'Description', 'flex' => 1, 'sortable' => true, 'filter' => true],
-                        ['field' => 'status', 'headerName' => 'Status', 'width' => 120, 'cellClass' => 'text-center'],
+                        ['field' => 'status', 'headerName' => 'Status', 'width' => 120, 'cellRenderer' => 'FmisRenderers.journalStatus'],
                         ['field' => 'total_amount', 'headerName' => 'Amount', 'type' => 'rightAligned', 'valueFormatter' => 'value.toLocaleString(\'en-US\', {style: \'currency\', currency: \'USD\'})'],
                         ['field' => 'created_by', 'headerName' => 'Created By'],
                         ['field' => 'actions', 'headerName' => 'Actions', 'cellRenderer' => 'FmisRenderers.journalActions', 'sortable' => false, 'filter' => false, 'width' => 180],

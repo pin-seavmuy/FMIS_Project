@@ -66,7 +66,7 @@ class Coa extends Component
             ['headerName' => 'Name', 'field' => 'name', 'flex' => 1],
             ['headerName' => 'Type', 'field' => 'type', 'width' => 120, 'cellStyle' => ['textTransform' => 'capitalize']],
             ['headerName' => 'Classification', 'field' => 'classification', 'width' => 180],
-            ['headerName' => 'Status', 'field' => 'is_active', 'width' => 100, 'valueFormatter' => 'FmisFormatters.activeStatus'],
+            ['headerName' => 'Status', 'field' => 'is_active', 'width' => 100, 'cellRenderer' => 'FmisRenderers.coaStatus'],
             ['headerName' => 'Actions', 'field' => 'id', 'width' => 140, 'cellRenderer' => 'FmisRenderers.coaActions', 'sortable' => false, 'filter' => false],
         ];
 

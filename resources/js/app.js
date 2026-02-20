@@ -120,6 +120,22 @@ window.FmisRenderers = {
             ${makeActionBtn("delete", `Livewire.dispatch('trigger-delete-coa', { id: ${id} })`)}
         </div>`;
     },
+    coaStatus: (params) => {
+        const isActive = params.value;
+        const colorClass = isActive ? 'badge-success' : 'badge-error';
+        const label = isActive ? 'Active' : 'Inactive';
+        return `<div class="flex items-center justify-center h-full">
+                    <span class="badge ${colorClass} badge-soft badge-sm">${label}</span>
+                </div>`;
+    },
+    journalStatus: (params) => {
+        const status = params.value;
+        const colorClass = status === 'posted' ? 'badge-success' : 'badge-warning';
+        const label = status === 'posted' ? 'Posted' : 'Draft';
+        return `<div class="flex items-center justify-center h-full">
+                    <span class="badge ${colorClass} badge-soft badge-sm capitalize">${label}</span>
+                </div>`;
+    },
     journalActions: (params) => {
         if (!params.data) return "";
         const id = params.data.id;
